@@ -34,6 +34,22 @@
   margin-top: 20px;
 }
 
+.ghostbunker {
+  background-color: aqua;
+}
+
+.food {
+  background-image: url(https://e7.pngegg.com/pngimages/216/119/png-clipart-strawberry-illustration-ms-pac-man-galaxian-super-smash-bros-for-nintendo-3ds-and-wii-u-arcade-game-pac-man-super-smash-bros-for-nintendo-3ds-and-wii-u-text.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.superfood {
+  background-image: url(https://w7.pngwing.com/pngs/899/510/png-transparent-cherry-fruit-pac-man-woman-silhouette-love-food-heart.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .pacman {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Pacman.svg/1200px-Pacman.svg.png);
   background-size: contain;
@@ -84,4 +100,45 @@
 #lifeboard {
   display: flex;
   justify-content: space-between;
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse {
+  -webkit-animation-name: pulse;
+  animation-duration: 0.2s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
 }
