@@ -5,8 +5,12 @@
     <title>Pac-Man</title>
     <link rel="stylesheet" href="main.css">
     <script src="app.js" charset="utf-8"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
+    <h1>Pac-Man: a Japanese Invention from 1980</h1>
     <main>
       <div class="gamewrapper">
         <section id="scoreboard">
@@ -27,9 +31,10 @@
             <p id="playerscore">Your current score is: <span id="currentscore"></span></p>
           </div>
           <div id="lives">
-            <p id="playerlives">You currently have: <span id="currentlives"></span></p>
+            <p id="playerlives">You currently have: <span id="currentlives"></span> lives</p>
           </div>
         </section>
+        <audio id="bitesthedust" src="sounds/bites_the_dust.wav"></audio>
       </div>
     </main>
   </body>

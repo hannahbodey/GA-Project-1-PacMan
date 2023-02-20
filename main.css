@@ -1,10 +1,34 @@
+body {
+  background-image: url(https://i.pinimg.com/originals/cd/d3/d0/cdd3d063efa131ca81da78e6b3ba550c.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+h1, button, p {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: large;
+  font-weight: 700;
+  background-color: rgba(0,0,0,0.2);
+  color: antiquewhite;
+}
+
 .gamewrapper {
   display:block;
 }
 
+p {
+  margin: 8px 0;
+}  
+
 #scoreboard {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: rgba(0,0,0,0.2);
+  color: antiquewhite;
 }
 
 #gameboard {
@@ -25,8 +49,10 @@
 
 .cell {
   width: 3.55%;
-  height: 3.55%;
+  /* height: 3.55%; */
+  height: 18px;
   background-color: antiquewhite;
+  /* background-color: #fff; */
   border: 1px solid rgba(0,0,0,1);
 }
 
@@ -39,9 +65,12 @@
 }
 
 .food {
-  background-image: url(https://e7.pngegg.com/pngimages/216/119/png-clipart-strawberry-illustration-ms-pac-man-galaxian-super-smash-bros-for-nintendo-3ds-and-wii-u-arcade-game-pac-man-super-smash-bros-for-nintendo-3ds-and-wii-u-text.png);
+  /* background-image: url(https://e7.pngegg.com/pngimages/216/119/png-clipart-strawberry-illustration-ms-pac-man-galaxian-super-smash-bros-for-nintendo-3ds-and-wii-u-arcade-game-pac-man-super-smash-bros-for-nintendo-3ds-and-wii-u-text.png); */
+  /* background-image: url(https://www.clipartmax.com/png/middle/148-1480464_single-cherry-blossom-petal.png); */
+  background-image: url(https://png.pngtree.com/png-clipart/20220108/ourmid/pngtree-pink-cherry-petal-illustration-png-image_4275808.png);
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .superfood {
@@ -75,7 +104,9 @@
 }
 
 .pinky {
-  background-image: url(https://e7.pngegg.com/pngimages/829/428/png-clipart-ms-pac-man-pac-man-adventures-in-time-pac-man-party-space-invaders-ghost-pacman-purple-super-smash-bros-for-nintendo-3ds-and-wii-u-thumbnail.png);
+  background-image: url(https://e7.pngegg.com/pngimages/829/428/png-clipart-ms-pac-man-pac-man-adventures-in-time-pac-man-party-space-invaders-ghost-pacman-purple-super-smash-bros-for-nintendo-3ds-and-wii-u-thumbnail.png); 
+  /* background-image: url(https://spng.pngfind.com/pngs/s/692-6922769_pacman-pac-man-pac-man-pacman-pac-man.png); */
+  /* background-image: url(https://www.vhv.rs/dpng/d/503-5036105_pink-pac-man-ghost-hd-png-download.png); */
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -99,7 +130,9 @@
 
 #lifeboard {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: rgba(0,0,0,0.2);
+  color: antiquewhite;
 }
 
 @-webkit-keyframes pulse {

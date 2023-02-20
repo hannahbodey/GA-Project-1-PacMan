@@ -1,13 +1,14 @@
 //!Pac Man Game
 //All MVP in green
 //*Any additions in light green
+
 function init(){
 //!Elements
 
 //*reset button?
-//spans for points and lives that are visible to the user, and update throughout the game
 //wall - one giant array which lists all the squares that are not accessible and then you can set that as an if statement in movement
 
+//Can I now get rid of some of these constants?
 const pacman = document.querySelector('.pacman')
 //const genericGhost = document.querySelector('.ghost')
 const blinky = document.querySelector('.blinky')
@@ -28,19 +29,15 @@ const levelSpan = document.querySelector('#currentlevel')
 const pointsSpan = document.querySelector('#currentscore')
 const livesSpan = document.querySelector('#currentlives')
 
-//add spans for points / lives
-//add food and super food classes
-
 let cell
 let currentPosition = 462
 
 function setBoard(){
   for(let i = 0; i < cellCount; i++) {
-    console.log('Cell created')
     cell = document.createElement('div')
     cell.classList.add('cell')
     cell.classList.add('wall')
-    cell.innerText = i
+    //cell.innerText = i
     cell.dataset.index = i
     grid.appendChild(cell)
     allSquaresArray.push(cell)
@@ -382,6 +379,7 @@ function addClyde(){
   cell.classList.add('clyde')
 }
 
+//need to check and sort array additions / changes
 function removeFood(){
   cell.classList.remove('food')
   if (foodArray.includes(cell)){
@@ -429,36 +427,31 @@ function clydeStart(){
 }
 
 //!Variables
-//number of points
 let points = 0
-//number of lives
 let lives = 3
 livesSpan.innerText = lives
-//ghosts timer
 let ghostTimer
 //*differentiated ghost timers for different characters?
-//random number, declared so it's a global variable
 let randomNumber
-//may need more variables to refer to the different intervals 
 //*so that they can be modified for level up?
-//additional timer for food power up?
 let foodTimer
 //let ghostIdentity
-
-//!Executions
-//startGame()
+let ghostsWeak
+let ghostsStronger
+let ghostsStrong
 let blinkyGoStart
 let pinkyGoStart
 let inkyGoStart
 let clydeGoStart
+
+//!Executions
 function startGame(){
+  document.addEventListener('keydown', pacmanMoves)
   blinkyGoStart = setInterval(blinkyGo, 1500)
   pinkyGoStart = setInterval(pinkyGo, 1500)
   inkyGoStart = setInterval(inkyGo, 1500)
   clydeGoStart = setInterval(clydeGo, 1500)
 }
-  //timer begins for movement of ghosts
-  //triggers ghostMovement()
   //*Queen battle theme starts playing?
 
   //*blinkyGo()
@@ -694,90 +687,6 @@ function pinkyAppear(pinkyPosition){
     pacmanDies()
   }
 
-//wall()
-//will need to be done by current position, not e
-function hitsWall(e){
-  if (e.target.classList.contains('wall') && e.target.classList.contains('pacman')){
-    console.log('You shall not pass!')
-  }
-}
-
-  //if player / ghost hits wall, turn a different way (for ghost, regenerate random number)
-
-// //ghostMovement()
-// function ghostMovement(){
-//   // blinkyGo()
-//   // randomNumber = Math.ceil(Math.random() * 4)
-//   // console.log(randomNumber)
-//   // console.log(ghostPosition)
-//   if (randomNumber === 1 && !allSquaresArray[(ghostPosition + 1)].classList.contains('wall')){
-//     ghostPosition++
-//     // ghostDisappear()
-//     // ghostAppear(ghostPosition)
-//     // if (!allSquaresArray[(ghostPosition + 1)].classList.contains('wall')){
-//     //   ghostPosition++
-//     // }
-//   } else if (randomNumber === 1 && ghostPosition === 299){
-//     ghostPosition = ghostPosition - (width - 1)
-//   } else if (randomNumber === 2 && !allSquaresArray[(ghostPosition - 1)].classList.contains('wall')){
-//     ghostPosition--
-//     // ghostDisappear()
-//     // ghostAppear(ghostPosition)
-//     // if (!allSquaresArray[(ghostPosition - 1)].classList.contains('wall')){
-//     //   ghostPosition--
-//     // }
-//   } else if (randomNumber === 2 && ghostPosition === 275){
-//     ghostPosition = ghostPosition + (width - 1)
-//   } else if (randomNumber === 3 && !allSquaresArray[(ghostPosition - width)].classList.contains('wall')){
-//     ghostPosition -= width
-//     // ghostDisappear()
-//     // ghostAppear(ghostPosition)
-//     // if (!allSquaresArray[(ghostPosition - width)].classList.contains('wall')){
-//     //   ghostPosition -= width
-//     // }
-//   } else if (randomNumber === 4 && !allSquaresArray[(ghostPosition + width)].classList.contains('wall')){
-//     ghostPosition += width
-//     // ghostDisappear()
-//     // ghostAppear(ghostPosition)
-//     // if (!allSquaresArray[(ghostPosition + width)].classList.contains('wall')){
-//     //   ghostPosition += width
-//     // }
-//   } else {
-//     ghostPosition = ghostPosition
-//     //ghostMovement()
-//   }
-//   console.log(ghostPosition)
-//   ghostDisappear()
-//   ghostAppear(ghostPosition)
-// }
-//   //random number called, which must be constrained to 1-4, and this will then select 
-//   //the ghost's next move (i.e. 1-up, 2-down, 3-left, 4-right)
-//   //if ghost hits wall, they can't be allowed to go any further and random number must be regenerated
-//   //need to stop them just reversing back the way that they came, so they go down if they hit a wall, for example
-//   //triggers ghostDisappear()
-//   //triggers ghostAppear()
-//   //ghosts begin to move in ghostAppear()
-//   //*trigger individual ghost movements ()
-
-// //ghostDisappear()
-// function ghostDisappear(){
-//   for (i = 0; i < cellCount; i++){
-//     allSquaresArray[i].classList.remove('ghost')
-//     }
-// }
-//   //class with previous ghost image removed, using ? to ensure that it doesn't break the code
-
-// //ghostAppear()
-// function ghostAppear(ghostPosition){
-//   allSquaresArray[ghostPosition].classList.add('ghost')
-//   pacmanDies()
-// }
-//   //class with ghost image added to the random square selected
-//   //checks if possible to land on any given square
-//   //trigger pacmanDies()
-
-
-//pacmanMovement()
 function pacmanMoves(e){
   const right = 39
   const left = 37
@@ -801,45 +710,29 @@ function pacmanMoves(e){
   pacmanRemove()
   pacmanAdd(currentPosition)
   pacmanFed(currentPosition)
+  //pacmanDies()
 }
-  //use identifiers to check if player has clicked up, right, left, down (let variables)
-  //sequence of if clauses for pacman image to be added to / removed from 
-  //trigger pacmanRemove()
-  //trigger pacmanAdd()
-  //the appropriate selected squares 
-  //checks if possible to land on any given square
-  //trigger pacmanFed()
-  //trigger pacmanWins()
 
-//pacmanRemove()
 function pacmanRemove(){
   for (let i = 0; i < cellCount; i++){
   allSquaresArray[i].classList.remove('pacman')
   }
-  //remove pacman class from previous square
 }
-//pacmanAdd()
+
 function pacmanAdd(currentPosition){
   allSquaresArray[currentPosition].classList.add('pacman')
 }
-  //add pacman class to new square
 
-//pacmanFed()
-let ghostsWeak
-let ghostsStronger
-let ghostsStrong
 function pacmanFed(currentPosition){
   if (allSquaresArray[currentPosition].classList.contains('food')){
     points ++
     pointsSpan.innerText = points
     allSquaresArray[currentPosition].classList.remove('food')
-    //change points span
   }
   if (allSquaresArray[currentPosition].classList.contains('superfood')){
     points++
     pointsSpan.innerText = points
     allSquaresArray[currentPosition].classList.remove('superfood')
-    //change points span
     ghostsWeak = setInterval(ghostWeakened, 100)
     ghostsStronger = setTimeout(ghostReturning, 2500)
     setTimeout(ghostsStrengthened, 5000)
@@ -848,38 +741,44 @@ function pacmanFed(currentPosition){
     pacmanWins(0)
   }
 }
-  //if pacman lands on a square with food, number of points increases
-  //if pacman lands on a square with superfood, trigger ghostsWeakened()
-// function ghostWeakened(){
-//   ghostScared()
-// }
-//ghostWeakened()
+
 function ghostWeakened(){
   removeScaredGhost()
   allSquaresArray[blinkyPosition].classList.add('scaredghost')
   allSquaresArray[pinkyPosition].classList.add('scaredghost')
   allSquaresArray[inkyPosition].classList.add('scaredghost')
   allSquaresArray[clydePosition].classList.add('scaredghost')
+  //if (currentPosition === blinkyPosition){ //
+  //if (currentPosition === blinkyPosition && allSquaresArray[currentPosition].classList.contains('scaredghost')){
   if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('blinky')){
     points = points + 200
     blinkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
+  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
     points = points + 200
     pinkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
+  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
     points = points + 200
     inkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
+  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
     points = points + 200
     clydeStart()
     removeScaredGhost()
+    bitesTheDust()
   }
+}
+
+function bitesTheDust(){
+  const bitesDust = document.querySelector('#bitesthedust')
+  bitesDust.play()
 }
 
 function removeScaredGhost(){
@@ -892,56 +791,51 @@ function removeScaredGhost(){
 function ghostReturning(){
   ghostsStrong = setInterval(ghostReturn, 200)
 }
-//ghostReturning()
+
 function ghostReturn(){
   removeScaredGhost()
   allSquaresArray[blinkyPosition].classList.add('scaredghost', 'pulse')
   allSquaresArray[pinkyPosition].classList.add('scaredghost', 'pulse')
   allSquaresArray[inkyPosition].classList.add('scaredghost', 'pulse')
   allSquaresArray[clydePosition].classList.add('scaredghost', 'pulse')
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('blinky')){
+  if (currentPosition === blinkyPosition){// (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('blinky')){
     points = points + 200
     blinkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
+  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
     points = points + 200
     pinkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
+  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
     points = points + 200
     inkyStart()
     removeScaredGhost()
+    bitesTheDust()
   }
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
+  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
     points = points + 200
     clydeStart()
     removeScaredGhost()
+    bitesTheDust()
   }
 }
-  //clear ghostWeakened() interval
-  //remove flashing class
-  //ghosts gain new class that makes them pulse blue / white
-  //can still be eaten by pacman
-  //shorter timeInterval on this one - maybe setTimeout?
   //*if pacman lands on square with ghost, play another one bites the dust clip
 
 function ghostsStrengthened(){
-  console.log('DOWN YOU GHOSTS - STOP FLASHING AND EAT ME')
   clearInterval(ghostsWeak)
   clearInterval(ghostsStronger)
   clearInterval(ghostsStrong)
   removeScaredGhost()
 }
-  //ghosts gain a new class that makes them flash
   //if pacman lands on a square with a ghost, then the ghost goes back to the ghost holder
   //pacman gets points (more each ghost he eats)
-  //setInterval on this being the case, because the ghosts must go back to being normal
-  //trigger ghostReturning()
   //*if pacman lands on square with ghost, play another one bites the dust clip
+  //*trigger scared ghost behaviour
 
-//pacmanWins()
 function pacmanWins(sum){
   for (let i = 0; i < cellCount; i++){
     if (allSquaresArray[i].classList.contains('food')){
@@ -957,69 +851,45 @@ function pacmanWins(sum){
     if (sum === cellCount){
       alert(`You win! Final Score: ${points}`)
     }
-    // if (allSquaresArray[i].classList.contains('food') || allSquaresArray[i].classList.contains('superfood')){
-    //   console.log('not finished')
-    // } else if (notWallArray[i].classList.contains('food')){
-    //   console.log('you win')
-    // }
   }
-  // if(notWallArray.includes('food') && notWallArray.includes('superfood')){
-  //   console.log('still playing')
-  // } else if (notWallArray.includes(!'food') && notWallArray.includes(!'superfood')){
-  //   console.log('you win')
-  // }
-  // if (notWallArray.includes('food')){// && notWallArray.includes('superfood') === true){
-  //   console.log('keep playing')
-  // }// } else if (notWallArray.includes('food') === false && notWallArray.includes('superfood') === false){
-  //   console.log('you win')
-  // }
-  // for (let i = 0; i < cellCount; i++){
-  //   if (!cell.classList.contains('food') && !cell.classList.contains('superfood')){
-  //     //levelUp()
-  //     console.log('you win')
-  //   }
-  // }
-  
 }
   //if pacman gets all food, then trigger levelUp()
-
-//pacmanDies()
+//I think this is pulling over the previous rules about ghosts after eating food, so need 
+//to make sure it's not undermining the other logic 
 function pacmanDies(){
-  if (allSquaresArray[currentPosition].classList.contains('blinky')){
-    lives --
+  if (currentPosition === blinkyPosition){//(allSquaresArray[currentPosition].classList.contains('blinky')){
+    lives--
     livesSpan.innerText = lives
     gameReset()
   } 
-  if (allSquaresArray[currentPosition].classList.contains('pinky')){
-    lives --
+  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pinky')){
+    lives--
     livesSpan.innerText = lives
     gameReset()
   } 
-  if (allSquaresArray[currentPosition].classList.contains('inky')){
-    lives --
+  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('inky')){
+    lives--
     livesSpan.innerText = lives
     gameReset()
   } 
-  if (allSquaresArray[currentPosition].classList.contains('clyde')){
-    lives --
+  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('clyde')){
+    lives--
     livesSpan.innerText = lives
     gameReset()
   }
-}
-  //if pacman and ghost on the same square
-  //pacman loses a life
-  //current score displayed to user
-  //games resets (gamereset())
+} 
   //*plays 'play the game' extract or 'under pressure'
 
-//gameReset()
 function gameReset(){
-  alert(`Lose a life! Lives remaining: ${lives}`)
+  alert(`Lose a life! \nLives remaining: ${lives} \nCurrent score: ${points}`)
   clearInterval(blinkyGoStart)
   clearInterval(pinkyGoStart)
   clearInterval(inkyGoStart)
   clearInterval(clydeGoStart)
   resetCharacters()
+  if (lives === 0){
+    alert(`You're dead, game over! \nTotal score: ${points}`)
+  }
 }
 
 function resetCharacters(){
@@ -1046,6 +916,7 @@ function resetCharacters(){
   //*ghost time intervals decrease (so speeding up)
   //*if level > 3, ghostWeakened() no longer triggered by the superfood
 
+//•need to add a complete game over points reset etc.
 //*ghostFrightened()
   //*all move away from pacman when pacman can eat them, scattering
 
@@ -1069,13 +940,7 @@ function resetCharacters(){
     //assigned to ghost bunker
 
 //!Events
-//player clicks play, game begins --> 'startGame()'
 startButton.addEventListener('click', startGame)
-
-//player touches keys (keydown events to allow for faster pacman movement) --> 'pacmanMovement()'
-document.addEventListener('keydown', pacmanMoves)
-
-
 }
 
 window.addEventListener('DOMContentLoaded', init)

@@ -132,3 +132,85 @@ function addWall(cell){
   wallArray.push(cell.dataset.index)
   console.log(wallArray)
 }
+
+  //if player / ghost hits wall, turn a different way (for ghost, regenerate random number)
+
+// //ghostMovement()
+// function ghostMovement(){
+//   // blinkyGo()
+//   // randomNumber = Math.ceil(Math.random() * 4)
+//   // console.log(randomNumber)
+//   // console.log(ghostPosition)
+//   if (randomNumber === 1 && !allSquaresArray[(ghostPosition + 1)].classList.contains('wall')){
+//     ghostPosition++
+//     // ghostDisappear()
+//     // ghostAppear(ghostPosition)
+//     // if (!allSquaresArray[(ghostPosition + 1)].classList.contains('wall')){
+//     //   ghostPosition++
+//     // }
+//   } else if (randomNumber === 1 && ghostPosition === 299){
+//     ghostPosition = ghostPosition - (width - 1)
+//   } else if (randomNumber === 2 && !allSquaresArray[(ghostPosition - 1)].classList.contains('wall')){
+//     ghostPosition--
+//     // ghostDisappear()
+//     // ghostAppear(ghostPosition)
+//     // if (!allSquaresArray[(ghostPosition - 1)].classList.contains('wall')){
+//     //   ghostPosition--
+//     // }
+//   } else if (randomNumber === 2 && ghostPosition === 275){
+//     ghostPosition = ghostPosition + (width - 1)
+//   } else if (randomNumber === 3 && !allSquaresArray[(ghostPosition - width)].classList.contains('wall')){
+//     ghostPosition -= width
+//     // ghostDisappear()
+//     // ghostAppear(ghostPosition)
+//     // if (!allSquaresArray[(ghostPosition - width)].classList.contains('wall')){
+//     //   ghostPosition -= width
+//     // }
+//   } else if (randomNumber === 4 && !allSquaresArray[(ghostPosition + width)].classList.contains('wall')){
+//     ghostPosition += width
+//     // ghostDisappear()
+//     // ghostAppear(ghostPosition)
+//     // if (!allSquaresArray[(ghostPosition + width)].classList.contains('wall')){
+//     //   ghostPosition += width
+//     // }
+//   } else {
+//     ghostPosition = ghostPosition
+//     //ghostMovement()
+//   }
+//   console.log(ghostPosition)
+//   ghostDisappear()
+//   ghostAppear(ghostPosition)
+// }
+//   //random number called, which must be constrained to 1-4, and this will then select 
+//   //the ghost's next move (i.e. 1-up, 2-down, 3-left, 4-right)
+//   //if ghost hits wall, they can't be allowed to go any further and random number must be regenerated
+//   //need to stop them just reversing back the way that they came, so they go down if they hit a wall, for example
+//   //triggers ghostDisappear()
+//   //triggers ghostAppear()
+//   //ghosts begin to move in ghostAppear()
+//   //*trigger individual ghost movements ()
+
+// //ghostDisappear()
+// function ghostDisappear(){
+//   for (i = 0; i < cellCount; i++){
+//     allSquaresArray[i].classList.remove('ghost')
+//     }
+// }
+//   //class with previous ghost image removed, using ? to ensure that it doesn't break the code
+
+// //ghostAppear()
+// function ghostAppear(ghostPosition){
+//   allSquaresArray[ghostPosition].classList.add('ghost')
+//   pacmanDies()
+// }
+//   //class with ghost image added to the random square selected
+//   //checks if possible to land on any given square
+//   //trigger pacmanDies()
+
+//wall()
+//will need to be done by current position, not e
+function hitsWall(e){
+  if (e.target.classList.contains('wall') && e.target.classList.contains('pacman')){
+    console.log('You shall not pass!')
+  }
+}
