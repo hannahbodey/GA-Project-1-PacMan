@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pac-Man</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="app.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <main>
+      <div class="gamewrapper">
+        <section id="scoreboard">
+          <div id="level">
+            <p id="playerlevel">Your current level is: <span id="currentlevel"></span></p>
+          </div>
+          <div id="highscore">
+            <p id="highestscore">The highest score ever is: <span id="highesteverscore"></span></p>
+          </div>
+        </section>
+        <section id="gameboard">
+          <div class="grid" id="gridwrapper">
+          </div>
+          <button id="startbutton" class="button">Click to play!</button>
+        </section>
+        <section id="lifeboard">
+          <div id="score">
+            <p id="playerscore">Your current score is: <span id="currentscore"></span></p>
+          </div>
+          <div id="lives">
+            <p id="playerlives">You currently have: <span id="currentlives"></span></p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
