@@ -54,7 +54,7 @@ function setBoard(){
     cell = document.createElement('div')
     cell.classList.add('cell')
     cell.classList.add('wall')
-    //cell.innerText = i
+    cell.innerText = i
     cell.dataset.index = i
     grid.appendChild(cell)
     allSquaresArray.push(cell)
@@ -441,16 +441,17 @@ let blinkyGoStart
 let pinkyGoStart
 let inkyGoStart
 let clydeGoStart
+let time = 800
 
 //!Executions
 function startGame(){
   setBoard()
   para.forEach(item => item.classList.remove('nodisplay'))
   document.addEventListener('keydown', pacmanMoves)
-  blinkyGoStart = setInterval(blinkyGo, 1500)
-  pinkyGoStart = setInterval(pinkyGo, 1500)
-  inkyGoStart = setInterval(inkyGo, 1500)
-  clydeGoStart = setInterval(clydeGo, 1500)
+  blinkyGoStart = setInterval(blinkyGo, time)
+  pinkyGoStart = setInterval(pinkyGo, time)
+  inkyGoStart = setInterval(inkyGo, time)
+  clydeGoStart = setInterval(clydeGo, (time * 1.5))
   document.querySelector('#startbutton').disabled = true
   title.classList.remove('starttitle')
   title.classList.add('titleresize')
@@ -459,16 +460,16 @@ function startGame(){
   pPicture.classList.add('nodisplay')
   levelSpan.innerText = '1'
   highestScore()
-  startSound.play()
+  //startSound.play()
 }
 
 function continueGame(){
   document.querySelector('#continuebutton').disabled = true
   document.addEventListener('keydown', pacmanMoves)
-  blinkyGoStart = setInterval(blinkyGo, 1500)
-  pinkyGoStart = setInterval(pinkyGo, 1500)
-  inkyGoStart = setInterval(inkyGo, 1500)
-  clydeGoStart = setInterval(clydeGo, 1500)
+  blinkyGoStart = setInterval(blinkyGo, time)
+  pinkyGoStart = setInterval(pinkyGo, time)
+  inkyGoStart = setInterval(inkyGo, time)
+  clydeGoStart = setInterval(clydeGo, (time * 1.5))
 }
   //*Queen battle theme starts playing?
 
@@ -476,11 +477,29 @@ function continueGame(){
   //*aggressively placed in top right hand corner, approaches pacman when in proximity
   //*takes the shortest route to pacman
   function blinkyGo(){
+  blinkyChase(blinkyPosition)
   randomNumber = Math.ceil(Math.random() * 4)
+  if (blinkyPosition === 265){
+    blinkyPosition -= width
+  } else if (blinkyPosition === 240){
+    blinkyPosition--
+  } else if (blinkyPosition === 239){
+    blinkyPosition--
+  } else if (blinkyPosition === 238){
+    blinkyPosition -= width
+  } else if (blinkyPosition === 213){
+    blinkyPosition -= width
+  } else if (blinkyPosition === 188){
+    blinkyPosition -= width
+  } else if (blinkyPosition === 163){
+    blinkyPosition++
+  } else if (blinkyPosition === 164){
+    blinkyPosition++
+  }
   //blinkyPosition = 259
   //ghostIdentity = 'blinky'
   // ghostMovement()
-  if (randomNumber === 1 && !allSquaresArray[(blinkyPosition + 1)].classList.contains('wall')){
+  else if (randomNumber === 1 && !allSquaresArray[(blinkyPosition + 1)].classList.contains('wall')){
     blinkyPosition++
     // blinkyDisappear()
     // blinkyAppear(blinkyPosition)
@@ -512,7 +531,9 @@ function continueGame(){
     // if (!allSquaresArray[(blinkyPosition + width)].classList.contains('wall')){
     //   blinkyPosition += width
     // }
-  } else {
+  //
+  }
+  else {
     blinkyPosition = blinkyPosition
     blinkyGo()
   }
@@ -531,51 +552,169 @@ function blinkyAppear(blinkyPosition){
   pacmanDies()
 }
 
+function blinkyChase(blinkyPosition){
+  console.log('chase!')
+  clearInterval(blinkyGoStart)
+  blinkyGoStart = setInterval(blinkyGo, time / 2)
+  if (blinkyPosition === currentPosition - 1 && !allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+    console.log('you are so dead')
+    blinkyPosition++
+  } if (blinkyPosition === currentPosition + 1 && !allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
+    console.log('you are so dead')
+    blinkyPosition--
+  } if (blinkyPosition === currentPosition - width && !allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+    console.log('you are so dead')
+    blinkyPosition += width
+  } if (blinkyPosition === currentPosition + width && !allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+    console.log('you are so dead')
+    blinkyPosition -= width
+  }
+  if (blinkyPosition < currentPosition){
+    console.log('he is either down or right')
+    if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+      console.log('going right')
+      blinkyPosition++
+    } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall') && blinkyPosition <= currentPosition - width){
+      console.log('going down')
+      blinkyPosition += width
+    } else if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall') && blinkyPosition <= currentPosition - 1){
+      console.log('going left')
+      blinkyPosition--
+    } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+      console.log('going up')
+      blinkyPosition -= width
+    }
+  } else if (blinkyPosition > currentPosition){
+    console.log('he is either up or left')
+      if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
+        console.log('going left two')
+        blinkyPosition--
+      } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall') && blinkyPosition >= currentPosition + width){
+        console.log('going up two')
+        blinkyPosition -= width
+      } else if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall') && blinkyPosition >= currentPosition + 1){
+        console.log('going right two')
+        blinkyPosition++
+      } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+        console.log('going down two')
+        blinkyPosition += width
+      }
+    }
+  }
+// if (blinkyPosition >= currentPosition - 10 && blinkyPosition <= currentPosition){
+//   console.log('chase! he is right')
+//   clearInterval(blinkyGoStart)
+//   blinkyGoStart = setInterval(blinkyGo, time / 2)
+//   if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+//     blinkyPosition++
+//     console.log('moving right at you')
+//   } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+//     blinkyPosition += width
+//     console.log('moving up at you')
+//   // } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+//   //   blinkyPosition -= width
+//   //   console.log('got to go down to get him')
+//   }
+//   else {console.log('cannot pass')}
+//   // } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+//   //   blinkyPosition+= width
+//   //   if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+//   //     blinkyPosition++
+//   //   }
+//   // }
+// } if (blinkyPosition >= currentPosition - (width * 2) && blinkyPosition <= currentPosition){
+//   clearInterval(blinkyGoStart)
+//   blinkyGoStart = setInterval(blinkyGo, time / 2)
+//   console.log('chase! he is above')
+//   if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+//     console.log('up to get to you')
+//     blinkyPosition += width
+//   }
+// } if (blinkyPosition <= currentPosition + (width * 2) && blinkyPosition >= currentPosition){
+//   clearInterval(blinkyGoStart)
+//   blinkyGoStart = setInterval(blinkyGo, time / 2)
+//   console.log('chase! he is below')
+//   if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+//     console.log('down to get you')
+//     blinkyPosition -= width
+//   }
+// }
+
+//if (blinkyPosition >= currentPosition - (width - 2)){
+
+//}
+//if (blinkyPosition >= currentPosition +)
+  //if ((blinkyPosition === currentPosition + 10) || (blinkyPosition === currentPosition - 10) || (blinkyPosition === currentPosition + width) || (blinkyPosition === currentPosition - width)){
+  //   if (blinkyPosition <= currentPosition + 10 && !allSquaresArray[blinkyPosition + 2].classList.contains('wall')){
+  //     blinkyPosition = blinkyPosition + 2
+  //   } else if (blinkyPosition <= currentPosition + 10 && !allSquaresArray[blinkyPosition + (width * 2)].contains('wall')){
+  //     blinkyPosition = blinkyPosition + (width * 2)
+  //   }
+
+
+
 //*pinkyGo()
   //*top left hand corner, ambushes when pacman is near
-  //*must move towards pacman, but not always the shortest route, sometimes winding
+  //*must move towards pacman, but not always the shortest route, sometimes winding - set increased intervals when pacman in proximity, remove and change once he has moved
   function pinkyGo(){
     randomNumber = Math.ceil(Math.random() * 4)
+    if (pinkyPosition === 259){
+      pinkyPosition -= width
+    } else if (pinkyPosition === 234){
+      pinkyPosition++
+    } else if (pinkyPosition === 235){
+      pinkyPosition++
+    } else if (pinkyPosition === 236){
+      pinkyPosition -= width
+    } else if (pinkyPosition === 211){
+      pinkyPosition -= width
+    } else if (pinkyPosition === 186){
+      pinkyPosition -= width
+    } else if (pinkyPosition === 161){
+      pinkyPosition--
+    } else if (pinkyPosition === 160){
+      pinkyPosition--
+    } 
     // pinkyPosition = ghostPosition
     //ghostMovement()
-  if (randomNumber === 1 && !allSquaresArray[(pinkyPosition + 1)].classList.contains('wall')){
-    pinkyPosition++
+    else if (randomNumber === 1 && !allSquaresArray[(pinkyPosition + 1)].classList.contains('wall')){
+      pinkyPosition++
     // pinkyDisappear()
     // pinkyAppear(pinkyPosition)
     // if (!allSquaresArray[(pinkyPosition + 1)].classList.contains('wall')){
     //   pinkyPosition++
     // }
-  } else if (randomNumber === 1 && pinkyPosition === 299){
-    pinkyPosition = pinkyPosition - (width - 1)
-  } else if (randomNumber === 2 && !allSquaresArray[(pinkyPosition - 1)].classList.contains('wall')){
-    pinkyPosition--
+    } else if (randomNumber === 1 && pinkyPosition === 299){
+      pinkyPosition = pinkyPosition - (width - 1)
+    } else if (randomNumber === 2 && !allSquaresArray[(pinkyPosition - 1)].classList.contains('wall')){
+      pinkyPosition--
     // pinkyDisappear()
     // pinkyAppear(pinkyPosition)
     // if (!allSquaresArray[(pinkyPosition - 1)].classList.contains('wall')){
     //   pinkyPosition--
     // }
-  } else if (randomNumber === 2 && pinkyPosition === 275){
-    pinkyPosition = pinkyPosition + (width - 1)
-  } else if (randomNumber === 3 && !allSquaresArray[(pinkyPosition - width)].classList.contains('wall')){
-    pinkyPosition -= width
+    } else if (randomNumber === 2 && pinkyPosition === 275){
+      pinkyPosition = pinkyPosition + (width - 1)
+    } else if (randomNumber === 3 && !allSquaresArray[(pinkyPosition - width)].classList.contains('wall')){
+      pinkyPosition -= width
     // pinkyDisappear()
     // pinkyAppear(pinkyPosition)
     // if (!allSquaresArray[(pinkyPosition - width)].classList.contains('wall')){
     //   pinkyPosition -= width
     // }
-  } else if (randomNumber === 4 && !allSquaresArray[(pinkyPosition + width)].classList.contains('wall')){
-    pinkyPosition += width
+    } else if (randomNumber === 4 && !allSquaresArray[(pinkyPosition + width)].classList.contains('wall')){
+      pinkyPosition += width
     // pinkyDisappear()
     // pinkyAppear(pinkyPosition)
     // if (!allSquaresArray[(pinkyPosition + width)].classList.contains('wall')){
     //   pinkyPosition += width
     // }
-  } else {
-    pinkyPosition = pinkyPosition
-    pinkyGo()
-  }
-  pinkyDisappear()
-  pinkyAppear(pinkyPosition)
+    } else {
+      pinkyPosition = pinkyPosition
+      pinkyGo()
+    }
+    pinkyDisappear()
+    pinkyAppear(pinkyPosition)
 }
 
 function pinkyDisappear(){
@@ -592,10 +731,22 @@ function pinkyAppear(pinkyPosition){
   //*patrols bottom right hand corner, only chasing pacman if he is near
   function inkyGo(){
     randomNumber = Math.ceil(Math.random() * 4)
+    if (inkyPosition === 315){
+      inkyPosition += width
+    } else if (inkyPosition === 340){
+      inkyPosition++
+    } else if (inkyPosition === 341){
+      inkyPosition += width
+    } else if (inkyPosition === 366){
+      inkyPosition += width
+    } else if (inkyPosition === 391){
+      inkyPosition += width
+    }  
+    
     //inkyPosition = 259
     //ghostIdentity = 'inky'
     // ghostMovement()
-    if (randomNumber === 1 && !allSquaresArray[(inkyPosition + 1)].classList.contains('wall')){
+    else if (randomNumber === 1 && !allSquaresArray[(inkyPosition + 1)].classList.contains('wall')){
       inkyPosition++
       // inkyDisappear()
       // inkyAppear(inkyPosition)
@@ -651,6 +802,17 @@ function pinkyAppear(pinkyPosition){
   //*random bottom left wandering, when chasing will just move randomly
   function clydeGo(){
     randomNumber = Math.ceil(Math.random() * 4)
+    if (clydePosition === 309){
+      clydePosition--
+    } else if (clydePosition === 308){
+      clydePosition += width
+    } else if (clydePosition === 333){
+      clydePosition += width
+    } else if (clydePosition === 358){
+      clydePosition += width
+    } else if (clydePosition === 383){
+      clydePosition += width
+    } else
     //clydePosition = 259
     //ghostIdentity = 'clyde'
     // ghostMovement()
@@ -751,6 +913,9 @@ function pacmanFed(currentPosition){
     points++
     pointsSpan.innerText = points
     allSquaresArray[currentPosition].classList.remove('superfood')
+    clearInterval(ghostsWeak)
+    clearInterval(ghostsStronger)
+    clearInterval(ghostsStrong)
     ghostsWeak = setInterval(ghostWeakened, 100)
     ghostsStronger = setTimeout(ghostReturning, 2500)
     setTimeout(ghostsStrengthened, 5000)
@@ -961,11 +1126,34 @@ function levelUpOne(){
   clearInterval(inkyGoStart)
   clearInterval(clydeGoStart)
   resetCharacters()
+  for(let i = 0; i < cellCount; i++) {
+    allSquaresArray[i].classList.add('food')
+    if(allSquaresArray[i].classList.contains('wall')){
+      allSquaresArray[i].classList.remove('food')
+    }
+    if (allSquaresArray[i].dataset.index == 101){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 123){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 451){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 473){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+  }
   document.addEventListener('keydown', pacmanMoves)
-  blinkyGoStart = setInterval(blinkyGo, 1000)
-  pinkyGoStart = setInterval(pinkyGo, 1000)
-  inkyGoStart = setInterval(inkyGo, 1000)
-  clydeGoStart = setInterval(clydeGo, 1000)
+  time = 750
+  blinkyGoStart = setInterval(blinkyGo, time)
+  pinkyGoStart = setInterval(pinkyGo, time)
+  inkyGoStart = setInterval(inkyGo, time)
+  clydeGoStart = setInterval(clydeGo, (time * 2))
   levelSpan.innerText = '2'
 }
 
@@ -975,11 +1163,34 @@ function levelUpTwo(){
   clearInterval(inkyGoStart)
   clearInterval(clydeGoStart)
   resetCharacters()
+  for(let i = 0; i < cellCount; i++) {
+    allSquaresArray[i].classList.add('food')
+    if(allSquaresArray[i].classList.contains('wall')){
+      allSquaresArray[i].classList.remove('food')
+    }
+    if (allSquaresArray[i].dataset.index == 101){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 123){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 451){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+    if (allSquaresArray[i].dataset.index == 473){
+      allSquaresArray[i].classList.remove('food')
+      allSquaresArray[i].classList.add('superfood')
+    }
+  }
   document.addEventListener('keydown', pacmanMoves)
-  blinkyGoStart = setInterval(blinkyGo, 500)
-  pinkyGoStart = setInterval(pinkyGo, 500)
-  inkyGoStart = setInterval(inkyGo, 500)
-  clydeGoStart = setInterval(clydeGo, 1000)
+  time = 500
+  blinkyGoStart = setInterval(blinkyGo, time)
+  pinkyGoStart = setInterval(pinkyGo, time)
+  inkyGoStart = setInterval(inkyGo, time)
+  clydeGoStart = setInterval(clydeGo, (time * 2))
   levelSpan.innerText = '3'
 }
 
