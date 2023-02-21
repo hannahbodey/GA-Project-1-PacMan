@@ -6,7 +6,6 @@ function init(){
 //!Elements
 
 //*reset button?
-//wall - one giant array which lists all the squares that are not accessible and then you can set that as an if statement in movement
 
 //Can I now get rid of some of these constants?
 const pacman = document.querySelector('.pacman')
@@ -16,7 +15,6 @@ const pinky = document.querySelector('.pinky')
 const inky = document.querySelector('.inky')
 const clyde = document.querySelector('.clyde')
 const grid = document.querySelector('.grid')
-const ghostBunker = document.querySelector('.ghostbunker')
 const width = 25
 const height = 25
 const cellCount = width * height
@@ -28,9 +26,28 @@ const startButton = document.querySelector('#startbutton')
 const levelSpan = document.querySelector('#currentlevel')
 const pointsSpan = document.querySelector('#currentscore')
 const livesSpan = document.querySelector('#currentlives')
+const body = document.querySelector('body')
+const para = document.querySelectorAll('p')
+const continueButton = document.querySelector('#continuebutton')
+const title = document.querySelector('#title')
+const titleText = document.querySelector('h1')
+const pPicture = document.querySelector('#p')
+const startSound = document.querySelector('#startsound')
 
 let cell
 let currentPosition = 462
+
+function startScreen(){
+  body.classList.add('body')
+  para.forEach(item => item.classList.add('nodisplay'))
+  continueButton.classList.add('nodisplay')
+  startButton.classList.add('pulsetwo')
+  startButton.classList.add('startbutton')
+  title.classList.add('starttitle')
+  titleText.classList.add('starttitle')
+}
+
+startScreen()
 
 function setBoard(){
   for(let i = 0; i < cellCount; i++) {
@@ -336,8 +353,6 @@ function setBoard(){
   }
 }
 
-setBoard()
-
 function removeWall(){
   cell.classList.remove('wall')
   notWallArray.push(cell)
@@ -358,10 +373,6 @@ function pacmanStart(){
   currentPosition = cell.dataset.index
   console.log(currentPosition)
   }
-
-function addBunker(){
-  cell.classList.add('ghostbunker')
-}
 
 function addBlinky(){
   cell.classList.add('blinky')
@@ -390,15 +401,6 @@ function removeFood(){
 function addSuperFood(){
   cell.classList.add('superfood')
 }
-
-// function resetFoodBoard(){
-//   console.log(foodArray)
-//   for (let i = 0; i < foodArray.length; i++){
-//     // if(foodArray.includes(i)){
-//     foodArray[i].classList.add('food')
-//     // }
-//   }
-// }
 
 function pacmanBackToStart(){
   currentPosition = 462
@@ -430,11 +432,7 @@ function clydeStart(){
 let points = 0
 let lives = 3
 livesSpan.innerText = lives
-let ghostTimer
-//*differentiated ghost timers for different characters?
 let randomNumber
-//*so that they can be modified for level up?
-let foodTimer
 //let ghostIdentity
 let ghostsWeak
 let ghostsStronger
@@ -446,6 +444,26 @@ let clydeGoStart
 
 //!Executions
 function startGame(){
+  setBoard()
+  para.forEach(item => item.classList.remove('nodisplay'))
+  document.addEventListener('keydown', pacmanMoves)
+  blinkyGoStart = setInterval(blinkyGo, 1500)
+  pinkyGoStart = setInterval(pinkyGo, 1500)
+  inkyGoStart = setInterval(inkyGo, 1500)
+  clydeGoStart = setInterval(clydeGo, 1500)
+  document.querySelector('#startbutton').disabled = true
+  title.classList.remove('starttitle')
+  title.classList.add('titleresize')
+  titleText.classList.add('nodisplay')
+  startButton.classList.add('nodisplay')
+  pPicture.classList.add('nodisplay')
+  levelSpan.innerText = '1'
+  highestScore()
+  startSound.play()
+}
+
+function continueGame(){
+  document.querySelector('#continuebutton').disabled = true
   document.addEventListener('keydown', pacmanMoves)
   blinkyGoStart = setInterval(blinkyGo, 1500)
   pinkyGoStart = setInterval(pinkyGo, 1500)
@@ -710,7 +728,7 @@ function pacmanMoves(e){
   pacmanRemove()
   pacmanAdd(currentPosition)
   pacmanFed(currentPosition)
-  //pacmanDies()
+  pacmanDies()
 }
 
 function pacmanRemove(){
@@ -748,27 +766,25 @@ function ghostWeakened(){
   allSquaresArray[pinkyPosition].classList.add('scaredghost')
   allSquaresArray[inkyPosition].classList.add('scaredghost')
   allSquaresArray[clydePosition].classList.add('scaredghost')
-  //if (currentPosition === blinkyPosition){ //
-  //if (currentPosition === blinkyPosition && allSquaresArray[currentPosition].classList.contains('scaredghost')){
-  if (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('blinky')){
+  if (currentPosition === blinkyPosition){
     points = points + 200
     blinkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
+  if (currentPosition === pinkyPosition){
     points = points + 200
     pinkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
+  if (currentPosition === inkyPosition){
     points = points + 200
     inkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
+  if (currentPosition === clydePosition){
     points = points + 200
     clydeStart()
     removeScaredGhost()
@@ -779,6 +795,7 @@ function ghostWeakened(){
 function bitesTheDust(){
   const bitesDust = document.querySelector('#bitesthedust')
   bitesDust.play()
+  //startSound.pause()
 }
 
 function removeScaredGhost(){
@@ -823,7 +840,6 @@ function ghostReturn(){
     bitesTheDust()
   }
 }
-  //*if pacman lands on square with ghost, play another one bites the dust clip
 
 function ghostsStrengthened(){
   clearInterval(ghostsWeak)
@@ -831,9 +847,7 @@ function ghostsStrengthened(){
   clearInterval(ghostsStrong)
   removeScaredGhost()
 }
-  //if pacman lands on a square with a ghost, then the ghost goes back to the ghost holder
   //pacman gets points (more each ghost he eats)
-  //*if pacman lands on square with ghost, play another one bites the dust clip
   //*trigger scared ghost behaviour
 
 function pacmanWins(sum){
@@ -849,35 +863,58 @@ function pacmanWins(sum){
       sum++
     }
     if (sum === cellCount){
-      alert(`You win! Final Score: ${points}`)
+      alert(`You win! Final Score: ${points} \nTime to Level Up!`)
+      if (levelSpan.innerText = '1'){
+        levelUpOne()
+      } else if (levelSpan.innerText = '2'){
+        levelUpTwo()
+      } else if (levelSpan.innerText = '3'){
+        alert(`You beat the monsters. Congratulations!`)
+      }
     }
   }
 }
-  //if pacman gets all food, then trigger levelUp()
-//I think this is pulling over the previous rules about ghosts after eating food, so need 
-//to make sure it's not undermining the other logic 
+
+//Probably can actually take out the && statement from the first set of if statements
 function pacmanDies(){
-  if (currentPosition === blinkyPosition){//(allSquaresArray[currentPosition].classList.contains('blinky')){
-    lives--
-    livesSpan.innerText = lives
-    gameReset()
-  } 
-  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pinky')){
-    lives--
-    livesSpan.innerText = lives
-    gameReset()
-  } 
-  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('inky')){
-    lives--
-    livesSpan.innerText = lives
-    gameReset()
-  } 
-  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('clyde')){
-    lives--
-    livesSpan.innerText = lives
-    gameReset()
+  if (allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
+    if (currentPosition === blinkyPosition && allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
+      lives = lives
+    } 
+    if (currentPosition === pinkyPosition && allSquaresArray[pinkyPosition].classList.contains('scaredghost')){
+      lives = lives
+    } 
+    if (currentPosition === inkyPosition && allSquaresArray[inkyPosition].classList.contains('scaredghost')){
+      lives = lives
+    } 
+    if (currentPosition === clydePosition && allSquaresArray[clydePosition].classList.contains('scaredghost')){
+      lives = lives
+    }
+  } else{
+    if (currentPosition === blinkyPosition){
+      lives--
+      livesSpan.innerText = lives
+      gameReset()
+    } 
+    if (currentPosition === pinkyPosition){
+      lives--
+      livesSpan.innerText = lives
+      gameReset()
+    } 
+    if (currentPosition === inkyPosition){
+      lives--
+      livesSpan.innerText = lives
+      gameReset()
+    } 
+    if (currentPosition === clydePosition){
+      lives--
+      livesSpan.innerText = lives
+      gameReset()
+    }
   }
-} 
+}
+  
+
   //*plays 'play the game' extract or 'under pressure'
 
 function gameReset(){
@@ -887,8 +924,11 @@ function gameReset(){
   clearInterval(inkyGoStart)
   clearInterval(clydeGoStart)
   resetCharacters()
+  continueButton.classList.remove('nodisplay')
+  document.querySelector('#continuebutton').disabled = false
   if (lives === 0){
     alert(`You're dead, game over! \nTotal score: ${points}`)
+    startSound.pause()
   }
 }
 
@@ -915,6 +955,50 @@ function resetCharacters(){
 //*levelUp()
   //*ghost time intervals decrease (so speeding up)
   //*if level > 3, ghostWeakened() no longer triggered by the superfood
+function levelUpOne(){
+  clearInterval(blinkyGoStart)
+  clearInterval(pinkyGoStart)
+  clearInterval(inkyGoStart)
+  clearInterval(clydeGoStart)
+  resetCharacters()
+  document.addEventListener('keydown', pacmanMoves)
+  blinkyGoStart = setInterval(blinkyGo, 1000)
+  pinkyGoStart = setInterval(pinkyGo, 1000)
+  inkyGoStart = setInterval(inkyGo, 1000)
+  clydeGoStart = setInterval(clydeGo, 1000)
+  levelSpan.innerText = '2'
+}
+
+function levelUpTwo(){
+  clearInterval(blinkyGoStart)
+  clearInterval(pinkyGoStart)
+  clearInterval(inkyGoStart)
+  clearInterval(clydeGoStart)
+  resetCharacters()
+  document.addEventListener('keydown', pacmanMoves)
+  blinkyGoStart = setInterval(blinkyGo, 500)
+  pinkyGoStart = setInterval(pinkyGo, 500)
+  inkyGoStart = setInterval(inkyGo, 500)
+  clydeGoStart = setInterval(clydeGo, 1000)
+  levelSpan.innerText = '3'
+}
+
+function highestScore(){
+  const highScore = 'highScores'
+  let highestScore = localStorage.getItem(highScore)
+  console.log(highestScore)
+  // 
+  // const numberHighScores = 0
+  // const highScoreString = localStorage.getItem(highScore);
+  // const highScores = JSON.parse(highScoreString) ?? [];
+  // function checkHighScore(score) {
+  //   const highScores = JSON.parse(localStorage.getItem(highScore)) ?? [];
+  //   const lowestScore = highScores[ - 1]?.score ?? 0;
+    
+  //   if (score > lowestScore) {
+  //     saveHighScore(score, highScores); // TODO
+  //     showHighScores(); // TODO
+}
 
 //•need to add a complete game over points reset etc.
 //*ghostFrightened()
@@ -934,13 +1018,13 @@ function resetCharacters(){
   // let startCell = cell.getAttribute('data-index', 462)
   // startCell.classList.add('pacman')
 
-
     //assigned to square one at bottom
   //ghostStart()
     //assigned to ghost bunker
 
 //!Events
 startButton.addEventListener('click', startGame)
+continueButton.addEventListener('click', continueGame)
 }
 
 window.addEventListener('DOMContentLoaded', init)

@@ -5,12 +5,18 @@
     <title>Pac-Man</title>
     <link rel="stylesheet" href="main.css">
     <script src="app.js" charset="utf-8"></script>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1>Pac-Man: a Japanese Invention from 1980</h1>
+    <section id="title">
+      <img id="p" src="pictures/capital_p.png" alt="Medieval manuscript letter p">
+      <h1>ac-Man</h1>
+    </section>
     <main>
       <div class="gamewrapper">
         <section id="scoreboard">
@@ -25,6 +31,7 @@
           <div class="grid" id="gridwrapper">
           </div>
           <button id="startbutton" class="button">Click to play!</button>
+          <button id="continuebutton" class="button">Think you can win this time?</button>
         </section>
         <section id="lifeboard">
           <div id="score">
@@ -35,6 +42,7 @@
           </div>
         </section>
         <audio id="bitesthedust" src="sounds/bites_the_dust.wav"></audio>
+        <audio id="startsound" src="sounds/Saltarello_No.mp3"></audio>
       </div>
     </main>
   </body>
