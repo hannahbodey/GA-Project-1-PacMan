@@ -1,8 +1,8 @@
 //!Pac Man Game
 //All MVP in green
 //*Any additions in light green
-
 function init(){
+
 //!Elements
 const grid = document.querySelector('.grid')
 const width = 25
@@ -15,6 +15,7 @@ const startButton = document.querySelector('#startbutton')
 const levelSpan = document.querySelector('#currentlevel')
 const pointsSpan = document.querySelector('#currentscore')
 const livesSpan = document.querySelector('#currentlives')
+const highestScoreSpan = document.querySelector('#highesteverscore')
 const body = document.querySelector('body')
 const para = document.querySelectorAll('p')
 const continueButton = document.querySelector('#continuebutton')
@@ -26,16 +27,30 @@ const startSound = document.querySelector('#startsound')
 const heartIcon = document.querySelector('#hearticon')
 const pointsIcon = document.querySelector('#pointsicon')
 
+//!Variables
 let cell
 let currentPosition = 462
+let points = 0
+pointsSpan.innerText = points
+let lives = 3
+livesSpan.innerText = lives
+let randomNumber
+let ghostsWeak
+let ghostsStronger
+let ghostsStrong
+let blinkyGoStart
+let pinkyGoStart
+let inkyGoStart
+let clydeGoStart
+let time = 800
 
+//!//!Page Load: Board and Play Set-Up
 function startScreen(){
   body.classList.add('body')
   para.forEach(item => item.classList.add('nodisplay'))
   continueButton.classList.add('nodisplay')
   resetButton.classList.add('nodisplay')
-  startButton.classList.add('pulsetwo')
-  startButton.classList.add('startbutton')
+  startButton.classList.add('pulsetwo', 'startbutton')
   title.classList.add('starttitle')
   titleText.classList.add('starttitle')
   heartIcon.classList.add('nodisplay')
@@ -49,7 +64,7 @@ function setBoard(){
     cell = document.createElement('div')
     cell.classList.add('cell')
     cell.classList.add('wall')
-    cell.innerText = i
+    //cell.innerText = i
     cell.dataset.index = i
     grid.appendChild(cell)
     allSquaresArray.push(cell)
@@ -71,7 +86,7 @@ function setBoard(){
     if (cell.dataset.index >= 38 && cell.dataset.index <= 48){
       removeWall()
     }
-    if (((cell.dataset.index % width) + 24 === width) && (cell.dataset.index > 1)) {//&& (cell.dataset.index < 226) && (cell.dataset.index > 275) && (cell.dataset.index < 300) && (cell.dataset.index < 325) && (cell.dataset.index > 352)){
+    if (((cell.dataset.index % width) + 24 === width) && (cell.dataset.index > 1)) {
       removeWall()
     }
     if (((cell.dataset.index % width) + 19 === width) && (cell.dataset.index > 6) && (cell.dataset.index < 532)){
@@ -184,18 +199,6 @@ function setBoard(){
     if (cell.dataset.index == 273){
       addWall()
     }
-    // if (cell.dataset.index >= 259 && cell.dataset.index <= 265){
-    //   removeWall()
-    //   addBunker()
-    // }
-    // if (cell.dataset.index >= 284 && cell.dataset.index <= 290){
-    //   removeWall()
-    //   addBunker()
-    // }
-    // if (cell.dataset.index >= 309 && cell.dataset.index <= 315){
-    //   removeWall()
-    //   addBunker()
-    // }
     if (cell.dataset.index >= 275 && cell.dataset.index <= 283){
       removeWall()
     }
@@ -354,7 +357,6 @@ function removeWall(){
   cell.classList.add('food')
   foodArray.push(cell)
 }
-
 function addWall(){
   cell.classList.add('wall')
   cell.classList.remove('food')
@@ -362,29 +364,6 @@ function addWall(){
   //   notWallArray.splice(cell)
   // }
 }
-
-function pacmanStart(){
-  cell.classList.add('pacman')
-  currentPosition = cell.dataset.index
-  console.log(currentPosition)
-  }
-
-function addBlinky(){
-  cell.classList.add('blinky')
-}
-
-function addPinky(){
-  cell.classList.add('pinky')
-}
-
-function addInky(){
-  cell.classList.add('inky')
-}
-
-function addClyde(){
-  cell.classList.add('clyde')
-}
-
 //need to check and sort array additions / changes
 function removeFood(){
   cell.classList.remove('food')
@@ -392,14 +371,25 @@ function removeFood(){
     foodArray.splice(cell)
   }
 }
-
 function addSuperFood(){
   cell.classList.add('superfood')
 }
 
-function pacmanBackToStart(){
-  currentPosition = 462
-  allSquaresArray[currentPosition].classList.add('pacman')
+function pacmanStart(){
+  cell.classList.add('pacman')
+  currentPosition = cell.dataset.index
+}
+function addBlinky(){
+  cell.classList.add('blinky')
+}
+function addPinky(){
+  cell.classList.add('pinky')
+}
+function addInky(){
+  cell.classList.add('inky')
+}
+function addClyde(){
+  cell.classList.add('clyde')
 }
 
 let blinkyPosition = 265
@@ -422,20 +412,10 @@ function clydeStart(){
   clydePosition = 309
   allSquaresArray[clydePosition].classList.add('clyde')
 }
-
-//!Variables
-let points = 0
-let lives = 3
-livesSpan.innerText = lives
-let randomNumber
-let ghostsWeak
-let ghostsStronger
-let ghostsStrong
-let blinkyGoStart
-let pinkyGoStart
-let inkyGoStart
-let clydeGoStart
-let time = 800
+function pacmanBackToStart(){
+  currentPosition = 462
+  allSquaresArray[currentPosition].classList.add('pacman')
+}
 
 //!Executions
 function startGame(){
@@ -457,13 +437,13 @@ function startGame(){
   resetButton.classList.remove('nodisplay')
   levelSpan.innerText = '1'
   highestScore()
-  //startSound.play()
+  startSound.play()
 }
 
 function continueGame(){
   document.querySelector('#continuebutton').disabled = true
-  if (resetButton.innerText == 'Click to play'){
-    resetButton.innerText = 'Reset'
+  if (resetButton.innerText === 'Click to play'){
+    resetButton.innerText === 'Reset'
   }
   if (continueButton.classList.contains('pulsetwo')){
     continueButton.classList.remove('pulsetwo')
@@ -476,14 +456,11 @@ function continueGame(){
   startSound.play()
 }
 
-  //*blinkyGo()
-  //*aggressively placed in top right hand corner, approaches pacman when in proximity
-  //*takes the shortest route to pacman
-
+//*Ghost Behaviour
 function killerMove(position){
     position = currentPosition
 }
-
+//*Blinky
 function blinkyGo(){
   if (!allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
     blinkyChase(blinkyPosition)
@@ -525,18 +502,15 @@ function blinkyGo(){
   blinkyDisappear()
   blinkyAppear(blinkyPosition)
 }
-
 function blinkyDisappear(){
   for (let i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('blinky')
   }
 }
-
 function blinkyAppear(blinkyPosition){
   allSquaresArray[blinkyPosition].classList.add('blinky')
   pacmanDies()
 }
-
 function blinkyChase(blinkyPosition){
   clearInterval(blinkyGoStart)
   blinkyGoStart = setInterval(blinkyGo, time / 1.5)
@@ -629,7 +603,7 @@ function blinkyChase(blinkyPosition){
 //*pinkyGo()
   //*top left hand corner, ambushes when pacman is near
   //*must move towards pacman, but not always the shortest route, sometimes winding - set increased intervals when pacman in proximity, remove and change once he has moved
-
+//*Pinky
 function pinkyGo(){
   if (!allSquaresArray[pinkyPosition].classList.contains('scaredghost')){
     pinkyChase(pinkyPosition)
@@ -675,18 +649,15 @@ function pinkyGo(){
   pinkyDisappear()
   pinkyAppear(pinkyPosition)
 }
-
 function pinkyDisappear(){
   for (let i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('pinky')
   }
 }
-
 function pinkyAppear(pinkyPosition){
   allSquaresArray[pinkyPosition].classList.add('pinky')
   pacmanDies()
 }
-
 function pinkyChase(pinkyPosition){
   if (pinkyPosition >= currentPosition - (width * 3) && pinkyPosition <= currentPosition + (width * 3)){
     clearInterval(pinkyGoStart)
@@ -702,7 +673,7 @@ function pinkyChase(pinkyPosition){
     }
   }
 }
-
+//*Inky
 function inkyGo(){
   if (!allSquaresArray[inkyPosition].classList.contains('scaredghost')){
     inkyChase(inkyPosition)
@@ -742,18 +713,15 @@ function inkyGo(){
   inkyDisappear()
   inkyAppear(inkyPosition)
 }
-
 function inkyDisappear(){
   for (let i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('inky')
   }
 }
-
 function inkyAppear(inkyPosition){
   allSquaresArray[inkyPosition].classList.add('inky')
   pacmanDies()
 }
-
 function inkyChase(inkyPosition){
   if (inkyPosition >= currentPosition - (width * 2.5) && inkyPosition <= currentPosition + (width * 2.5)){
     clearInterval(inkyGoStart)
@@ -769,7 +737,7 @@ function inkyChase(inkyPosition){
     }
   }
 }
-
+//*Clyde
 function clydeGo(){
   randomNumber = Math.ceil(Math.random() * 4)
   if (clydePosition === 309){
@@ -801,18 +769,16 @@ function clydeGo(){
   clydeDisappear()
   clydeAppear(clydePosition)
 }
-
 function clydeDisappear(){
   for (let i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('clyde')
   }
 }
-
 function clydeAppear(clydePosition){
   allSquaresArray[clydePosition].classList.add('clyde')
   pacmanDies()
 }
-
+//*PacMan Movement
 function pacmanMoves(e){
   const right = 39
   const left = 37
@@ -838,17 +804,14 @@ function pacmanMoves(e){
   pacmanFed(currentPosition)
   pacmanDies()
 }
-
 function pacmanRemove(){
   for (let i = 0; i < cellCount; i++){
   allSquaresArray[i].classList.remove('pacman')
   }
 }
-
 function pacmanAdd(currentPosition){
   allSquaresArray[currentPosition].classList.add('pacman')
 }
-
 function pacmanFed(currentPosition){
   if (allSquaresArray[currentPosition].classList.contains('food')){
     points ++
@@ -872,7 +835,7 @@ function pacmanFed(currentPosition){
     pacmanWins(0)
   }
 }
-
+//*After Eating Functions
 function ghostWeakened(){
   removeScaredGhost()
   allSquaresArray[blinkyPosition].classList.add('scaredghost')
@@ -904,7 +867,6 @@ function ghostWeakened(){
     bitesTheDust()
   }
 }
-
 function ghostScattering() {
   clearInterval(blinkyGoStart)
   clearInterval(pinkyGoStart)
@@ -915,35 +877,29 @@ function ghostScattering() {
   inkyGoStart = setInterval(inkyGo, time)
   clydeGoStart = setInterval(clydeGo, (time * 1.5))
 }
-
 function warHorn(){
   const warHornSound = document.querySelector('#warhorn')
   warHornSound.play()
 }
-
 function bitesTheDust(){
   const bitesDust = document.querySelector('#bitesthedust')
   bitesDust.play()
   //startSound.pause()
 }
-
 function pacmanDiesSound(){
   const pacmanLament = document.querySelector('#pacmandies')
   startSound.pause()
   pacmanLament.play()
 }
-
 function removeScaredGhost(){
   for (i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('scaredghost')
     allSquaresArray[i]?.classList.remove('pulse')
     }
 }
-
 function ghostReturning(){
   ghostsStrong = setInterval(ghostReturn, 50)
 }
-
 function ghostReturn(){
   removeScaredGhost()
   allSquaresArray[blinkyPosition].classList.add('scaredghost', 'pulse')
@@ -975,7 +931,6 @@ function ghostReturn(){
     bitesTheDust()
   }
 }
-
 function ghostsStrengthened(){
   clearInterval(ghostsWeak)
   clearInterval(ghostsStronger)
@@ -983,7 +938,7 @@ function ghostsStrengthened(){
   removeScaredGhost()
 }
   //pacman gets points (more each ghost he eats)
-
+//*Reset, Failure and Victory Functions
 function pacmanWins(sum){
   for (let i = 0; i < cellCount; i++){
     if (allSquaresArray[i].classList.contains('food')){
@@ -1004,11 +959,11 @@ function pacmanWins(sum){
         levelUpTwo()
       } else if (levelSpan.innerText = '3'){
         alert(`You beat the monsters. Congratulations!`)
+        highestScore()
       }
     }
   }
 }
-
 function pacmanDies(){
   if (allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
     if (currentPosition === blinkyPosition){
@@ -1050,7 +1005,6 @@ function pacmanDies(){
     }
   }
 }
-
 function gameReset(){
   alert(`Lose a life! \nLives remaining: ${lives} \nCurrent score: ${points}`)
   clearInterval(blinkyGoStart)
@@ -1065,8 +1019,8 @@ function gameReset(){
     alert(`You're dead, game over! \nTotal score: ${points}`)
     startSound.pause()
   }
+  highestScore()
 }
-
 function resetCharacters(){
   for (let i = 0; i < cellCount; i++){
     allSquaresArray[i].classList.remove('pacman', 'blinky', 'pinky', 'inky', 'clyde')
@@ -1077,7 +1031,6 @@ function resetCharacters(){
   clydeStart()
   pacmanBackToStart()
 }
-
 function foodReset(){
   for(let i = 0; i < cellCount; i++) {
     allSquaresArray[i].classList.add('food')
@@ -1126,7 +1079,6 @@ function foodReset(){
   }
   }
 }
-
 function levelUpOne(){
   clearInterval(blinkyGoStart)
   clearInterval(pinkyGoStart)
@@ -1142,7 +1094,6 @@ function levelUpOne(){
   clydeGoStart = setInterval(clydeGo, (time * 2))
   levelSpan.innerText = '2'
 }
-
 function levelUpTwo(){
   clearInterval(blinkyGoStart)
   clearInterval(pinkyGoStart)
@@ -1166,24 +1117,14 @@ function levelUpTwo(){
   clydeGoStart = setInterval(clydeGo, (time * 2))
   levelSpan.innerText = '3'
 }
-
 function highestScore(){
-  const highScore = 'highScores'
-  let highestScore = localStorage.getItem(highScore)
-  console.log(highestScore)
-  // 
-  // const numberHighScores = 0
-  // const highScoreString = localStorage.getItem(highScore);
-  // const highScores = JSON.parse(highScoreString) ?? [];
-  // function checkHighScore(score) {
-  //   const highScores = JSON.parse(localStorage.getItem(highScore)) ?? [];
-  //   const lowestScore = highScores[ - 1]?.score ?? 0;
-    
-  //   if (score > lowestScore) {
-  //     saveHighScore(score, highScores); // TODO
-  //     showHighScores(); // TODO
+  let topScore = localStorage.getItem('topscore')
+  highestScoreSpan.innerText = topScore
+  if (points > topScore) {
+    localStorage.setItem('topscore', points)
+    highestScoreSpan.innerText = points
+  } 
 }
-
 function fullReset(){
   clearInterval(blinkyGoStart)
   clearInterval(pinkyGoStart)
@@ -1191,7 +1132,7 @@ function fullReset(){
   clearInterval(clydeGoStart)
   resetCharacters()
   foodReset()
-
+  highestScore()
   lives = 3
   livesSpan.innerText = lives
   points = 0
@@ -1202,28 +1143,6 @@ function fullReset(){
     resetButton.addEventListener('click', continueGame)
   }
 }
-
-//•need to add a complete game over points reset etc.
-//*ghostFrightened()
-  //*all move away from pacman when pacman can eat them, scattering
-
-//*ghostsChase()
-//*if ghostIdentity =, then...
-//!Page load
-//*boardDelay()
-  //*start screen on setInterval so that it transitions into the game itself after a few seconds so you can click start
-
-//boardAppears()
-  //creates board layout
-//pacman and ghosts assigned to starter squares
-  //pacmanStart()
-
-  // let startCell = cell.getAttribute('data-index', 462)
-  // startCell.classList.add('pacman')
-
-    //assigned to square one at bottom
-  //ghostStart()
-    //assigned to ghost bunker
 
 //!Events
 startButton.addEventListener('click', startGame)
