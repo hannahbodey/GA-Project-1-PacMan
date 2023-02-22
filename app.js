@@ -458,7 +458,7 @@ function continueGame(){
 
 //*Ghost Behaviour
 function killerMove(position){
-    position = currentPosition
+  position = currentPosition
 }
 //*Blinky
 function blinkyGo(){
