@@ -33,7 +33,7 @@ h1 {
   text-align: center;
   font-size: large;
   font-weight: 700;
-  background-color: rgba(0,0,0,0.2);
+  /* background-color: rgba(0,0,0,0.2); */
   color: antiquewhite;
 }
 
@@ -43,6 +43,7 @@ h1 {
 
 p {
   margin: 8px 0;
+  font-size: large;
 }  
 
 #scoreboard {
@@ -188,6 +189,16 @@ p {
   justify-content: space-around;
   background-color: rgba(0,0,0,0.2);
   color: antiquewhite;
+}
+
+#lives, #score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#hearticon, #pointsicon {
+  max-height: 35px;
 }
 
 @-webkit-keyframes pulse {

@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Pac-Man</title>
+    <title>Sir Pacalot</title>
     <link rel="stylesheet" href="main.css">
     <script src="app.js" charset="utf-8"></script>
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,14 +35,19 @@
         </section>
         <section id="lifeboard">
           <div id="score">
-            <p id="playerscore">Your current score is: <span id="currentscore"></span></p>
+            <img id="pointsicon" src="pictures/food.png" alt="points food icon">
+            <p id="playerscore"> <span id="currentscore"></span></p>
           </div>
+          <button id="reset" class="button">Reset</button>
           <div id="lives">
-            <p id="playerlives">You currently have: <span id="currentlives"></span> lives</p>
+            <p id="playerlives"><span id="currentlives"></span> </p>
+            <img id="hearticon" src="pictures/heart.png" alt="heart icon">
           </div>
         </section>
         <audio id="bitesthedust" src="sounds/bites_the_dust.wav"></audio>
         <audio id="startsound" src="sounds/Saltarello_No.mp3"></audio>
+        <audio id="warhorn" src="sounds/war_horn.mp3"></audio>
+        <audio id="pacmandies" src="sounds/pacman_dies.mp3"></audio>
       </div>
     </main>
   </body>
