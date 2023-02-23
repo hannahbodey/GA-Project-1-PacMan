@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-#p {
+#p, #sirpac {
   max-height: 200px;
 }
 
@@ -76,6 +76,10 @@ p {
   background-color: rgba(250, 235, 215, 0.8);
   /* background-color: #fff; */
   border: 1px solid rgba(0,0,0,1);
+}
+
+.pacmancell {
+  background-color: rgba(240, 207, 151, 0.8);
 }
 
 .starttitle {

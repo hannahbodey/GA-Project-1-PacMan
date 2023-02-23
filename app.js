@@ -23,6 +23,7 @@ const resetButton = document.querySelector('#reset')
 const title = document.querySelector('#title')
 const titleText = document.querySelector('h1')
 const pPicture = document.querySelector('#p')
+const sirPac = document.querySelector('#sirpac')
 const startSound = document.querySelector('#startsound')
 const heartIcon = document.querySelector('#hearticon')
 const pointsIcon = document.querySelector('#pointsicon')
@@ -360,9 +361,9 @@ function removeWall(){
 function addWall(){
   cell.classList.add('wall')
   cell.classList.remove('food')
-  // if (notWallArray.includes(cell)){
-  //   notWallArray.splice(cell)
-  // }
+  if (notWallArray.includes(cell)){
+    let randomWall = notWallArray.splice(cell, 1)
+  }
 }
 //need to check and sort array additions / changes
 function removeFood(){
@@ -377,6 +378,7 @@ function addSuperFood(){
 
 function pacmanStart(){
   cell.classList.add('pacman')
+  cell.classList.add('pacmancell')
   currentPosition = cell.dataset.index
 }
 function addBlinky(){
@@ -432,12 +434,13 @@ function startGame(){
   titleText.classList.add('nodisplay')
   startButton.classList.add('nodisplay')
   pPicture.classList.add('nodisplay')
+  sirPac.classList.add('nodisplay')
   heartIcon.classList.remove('nodisplay')
   pointsIcon.classList.remove('nodisplay')
   resetButton.classList.remove('nodisplay')
   levelSpan.innerText = '1'
   highestScore()
-  //startSound.play()
+  startSound.play()
 }
 
 function continueGame(){
@@ -924,13 +927,14 @@ function pacmanWins(sum){
     }
     if (sum === cellCount){
       alert(`You win! Final Score: ${points} \nTime to Level Up!`)
-      if (levelSpan.innerText = '1'){
+      if (levelSpan.innerText === '1'){
         levelUpOne()
-      } else if (levelSpan.innerText = '2'){
+      } else if (levelSpan.innerText === '2'){
         levelUpTwo()
-      } else if (levelSpan.innerText = '3'){
+      } else if (levelSpan.innerText === '3'){
         alert(`You beat the monsters. Congratulations!`)
         highestScore()
+        fullReset()
       }
     }
   }
@@ -986,9 +990,10 @@ function gameReset(){
   continueButton.classList.remove('nodisplay')
   document.querySelector('#continuebutton').disabled = false
   continueButton.classList.add('pulsetwo')
-  if (lives === 0){
+  if (lives <= 0){
     alert(`You're dead, game over! \nTotal score: ${points}`)
     startSound.pause()
+    fullReset()
   }
   highestScore()
 }
