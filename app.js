@@ -437,14 +437,12 @@ function startGame(){
   resetButton.classList.remove('nodisplay')
   levelSpan.innerText = '1'
   highestScore()
-  startSound.play()
+  //startSound.play()
 }
 
 function continueGame(){
   document.querySelector('#continuebutton').disabled = true
-  if (resetButton.innerText === 'Click to play'){
-    resetButton.innerText === 'Reset'
-  }
+  resetButton.innerText = 'Reset'
   if (continueButton.classList.contains('pulsetwo')){
     continueButton.classList.remove('pulsetwo')
   }
@@ -518,98 +516,63 @@ function blinkyChase(blinkyPosition){
     clearInterval(blinkyGoStart)
     blinkyGoStart = setInterval(blinkyGo, time / 4)
   }
-  if (blinkyPosition === currentPosition - 1 && !allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+  if (blinkyPosition === currentPosition - 1){
     killerMove(blinkyPosition)
-  } else if (blinkyPosition === currentPosition + 1 && !allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
+  } else if (blinkyPosition === currentPosition + 1){
     killerMove(blinkyPosition)
-  } else if (blinkyPosition === currentPosition - width && !allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+  } else if (blinkyPosition === currentPosition - width){
     killerMove(blinkyPosition)
-  } else if (blinkyPosition === currentPosition + width && !allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+  } else if (blinkyPosition === currentPosition + width){
     killerMove(blinkyPosition)
-  } else if (blinkyPosition < currentPosition){
+  } else if (blinkyPosition < currentPosition - 1 && width > (currentPosition - blinkyPosition)){
     if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
       blinkyPosition++
-    } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall') && blinkyPosition <= currentPosition - width){
+    } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+      blinkyPosition -= width
+    } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
       blinkyPosition += width
-    } else if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall') && blinkyPosition <= currentPosition - 1){
+    } else if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
+      blinkyPosition--
+    }
+  } else if (blinkyPosition > currentPosition + 1 && width > (blinkyPosition - currentPosition)){
+    if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){ 
+      blinkyPosition--
+    } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
+      blinkyPosition -= width 
+    }  else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+      blinkyPosition += width
+    } else if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+      blinkyPosition++
+    }
+  } else if (blinkyPosition > currentPosition + 1){
+    if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){ 
+      blinkyPosition -= width
+    } else if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+      blinkyPosition++
+    }  else if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
+      blinkyPosition--
+    } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+      blinkyPosition += width
+    }
+  } else if (blinkyPosition < currentPosition + 1){
+    if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
+      blinkyPosition += width
+    } else if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
+      blinkyPosition++
+    }  else if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
       blinkyPosition--
     } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
       blinkyPosition -= width
     }
-  } else if (blinkyPosition > currentPosition){
-      if (!allSquaresArray[blinkyPosition - 1].classList.contains('wall')){
-        blinkyPosition--
-      } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall') && blinkyPosition >= currentPosition + width){
-        blinkyPosition -= width
-      } else if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall') && blinkyPosition >= currentPosition + 1){
-        blinkyPosition++
-      } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
-        blinkyPosition += width
-      }
-    }
   }
-// if (blinkyPosition >= currentPosition - 10 && blinkyPosition <= currentPosition){
-//   console.log('chase! he is right')
-//   clearInterval(blinkyGoStart)
-//   blinkyGoStart = setInterval(blinkyGo, time / 2)
-//   if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
-//     blinkyPosition++
-//     console.log('moving right at you')
-//   } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
-//     blinkyPosition += width
-//     console.log('moving up at you')
-//   // } else if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
-//   //   blinkyPosition -= width
-//   //   console.log('got to go down to get him')
-//   }
-//   else {console.log('cannot pass')}
-//   // } else if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
-//   //   blinkyPosition+= width
-//   //   if (!allSquaresArray[blinkyPosition + 1].classList.contains('wall')){
-//   //     blinkyPosition++
-//   //   }
-//   // }
-// } if (blinkyPosition >= currentPosition - (width * 2) && blinkyPosition <= currentPosition){
-//   clearInterval(blinkyGoStart)
-//   blinkyGoStart = setInterval(blinkyGo, time / 2)
-//   console.log('chase! he is above')
-//   if (!allSquaresArray[blinkyPosition - width].classList.contains('wall')){
-//     console.log('up to get to you')
-//     blinkyPosition += width
-//   }
-// } if (blinkyPosition <= currentPosition + (width * 2) && blinkyPosition >= currentPosition){
-//   clearInterval(blinkyGoStart)
-//   blinkyGoStart = setInterval(blinkyGo, time / 2)
-//   console.log('chase! he is below')
-//   if (!allSquaresArray[blinkyPosition + width].classList.contains('wall')){
-//     console.log('down to get you')
-//     blinkyPosition -= width
-//   }
-// }
-
-//if (blinkyPosition >= currentPosition - (width - 2)){
-
-//}
-//if (blinkyPosition >= currentPosition +)
-  //if ((blinkyPosition === currentPosition + 10) || (blinkyPosition === currentPosition - 10) || (blinkyPosition === currentPosition + width) || (blinkyPosition === currentPosition - width)){
-  //   if (blinkyPosition <= currentPosition + 10 && !allSquaresArray[blinkyPosition + 2].classList.contains('wall')){
-  //     blinkyPosition = blinkyPosition + 2
-  //   } else if (blinkyPosition <= currentPosition + 10 && !allSquaresArray[blinkyPosition + (width * 2)].contains('wall')){
-  //     blinkyPosition = blinkyPosition + (width * 2)
-  //   }
-
-
-
-//*pinkyGo()
-  //*top left hand corner, ambushes when pacman is near
-  //*must move towards pacman, but not always the shortest route, sometimes winding - set increased intervals when pacman in proximity, remove and change once he has moved
+}
 //*Pinky
 function pinkyGo(){
   if (!allSquaresArray[pinkyPosition].classList.contains('scaredghost')){
     pinkyChase(pinkyPosition)
   }
   randomNumber = Math.ceil(Math.random() * 4)
-  if (pinkyPosition <= currentPosition - (width * 3) || pinkyPosition >= currentPosition + (width * 3)){
+  if (pinkyPosition <= currentPosition - (width * 4) || pinkyPosition >= currentPosition + (width * 4)){
     clearInterval(pinkyGoStart)
     pinkyGoStart = setInterval(pinkyGo, time)
   }
@@ -659,17 +622,25 @@ function pinkyAppear(pinkyPosition){
   pacmanDies()
 }
 function pinkyChase(pinkyPosition){
-  if (pinkyPosition >= currentPosition - (width * 3) && pinkyPosition <= currentPosition + (width * 3)){
+  if (pinkyPosition >= currentPosition - (width * 4) && pinkyPosition <= currentPosition + (width * 4)){
     clearInterval(pinkyGoStart)
     pinkyGoStart = setInterval(pinkyGo, time / 3)
-    if (pinkyPosition === currentPosition - 1 && !allSquaresArray[pinkyPosition + 1].classList.contains('wall')){
+    if (pinkyPosition === currentPosition - 1){
       killerMove(pinkyPosition)
-    } else if (pinkyPosition === currentPosition + 1 && !allSquaresArray[pinkyPosition - 1].classList.contains('wall')){
+    } else if (pinkyPosition === currentPosition + 1){
       killerMove(pinkyPosition)
-    } else if (pinkyPosition === currentPosition - width && !allSquaresArray[pinkyPosition + width].classList.contains('wall')){
+    } else if (pinkyPosition === currentPosition - width){
       killerMove(pinkyPosition)
-    } else if (pinkyPosition === currentPosition + width && !allSquaresArray[pinkyPosition - width].classList.contains('wall')){
+    } else if (pinkyPosition === currentPosition + width){
       killerMove(pinkyPosition)
+    } else if (pinkyPosition < currentPosition - width){
+      pinkyPosition += width
+    } else if (pinkyPosition >= currentPosition - width && pinkyPosition < currentPosition - 1){
+      pinkyPosition++
+    } else if (pinkyPosition > currentPosition + width){
+      pinkyPosition -= width
+    } else if (pinkyPosition <= currentPosition + width && pinkyPosition > currentPosition + 1){
+      pinkyPosition--
     }
   }
 }
@@ -726,13 +697,13 @@ function inkyChase(inkyPosition){
   if (inkyPosition >= currentPosition - (width * 2.5) && inkyPosition <= currentPosition + (width * 2.5)){
     clearInterval(inkyGoStart)
     inkyGoStart = setInterval(inkyGo, time / 2)
-    if (inkyPosition === currentPosition - 1 && !allSquaresArray[inkyPosition + 1].classList.contains('wall')){
+    if (inkyPosition === currentPosition - 1){
       killerMove(inkyPosition)
-    } else if (inkyPosition === currentPosition + 1 && !allSquaresArray[inkyPosition - 1].classList.contains('wall')){
+    } else if (inkyPosition === currentPosition + 1){
       killerMove(inkyPosition)
-    } else if (inkyPosition === currentPosition - width && !allSquaresArray[inkyPosition + width].classList.contains('wall')){
+    } else if (inkyPosition === currentPosition - width){
       killerMove(inkyPosition)
-    } else if (inkyPosition === currentPosition + width && !allSquaresArray[inkyPosition - width].classList.contains('wall')){
+    } else if (inkyPosition === currentPosition + width){
       killerMove(inkyPosition)
     }
   }
@@ -906,25 +877,25 @@ function ghostReturn(){
   allSquaresArray[pinkyPosition].classList.add('scaredghost', 'pulse')
   allSquaresArray[inkyPosition].classList.add('scaredghost', 'pulse')
   allSquaresArray[clydePosition].classList.add('scaredghost', 'pulse')
-  if (currentPosition === blinkyPosition){// (allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('blinky')){
+  if (currentPosition === blinkyPosition){
     points = points + 200
     blinkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === pinkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('pinky')){
+  if (currentPosition === pinkyPosition){
     points = points + 200
     pinkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === inkyPosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('inky')){
+  if (currentPosition === inkyPosition){
     points = points + 200
     inkyStart()
     removeScaredGhost()
     bitesTheDust()
   }
-  if (currentPosition === clydePosition){//(allSquaresArray[currentPosition].classList.contains('pacman') && allSquaresArray[currentPosition].classList.contains('clyde')){
+  if (currentPosition === clydePosition){
     points = points + 200
     clydeStart()
     removeScaredGhost()
@@ -1123,6 +1094,7 @@ function highestScore(){
   if (points > topScore) {
     localStorage.setItem('topscore', points)
     highestScoreSpan.innerText = points
+    alert(`New high score! \nPoints: ${points}`)
   } 
 }
 function fullReset(){
@@ -1138,9 +1110,14 @@ function fullReset(){
   points = 0
   pointsSpan.innerText = points
   levelSpan.innerText = '1'
+  if (resetButton.innerText === 'Reset'){
+  resetButton.removeEventListener('click', continueGame)
   resetButton.innerText = 'Click to play'
-  if (resetButton.innerText == 'Click to play'){
+  }
+  if (resetButton.innerText === 'Click to play'){
     resetButton.addEventListener('click', continueGame)
+  } else if (resetButton.innerText === 'Reset'){
+    resetButton.innerText = 'Click to play'
   }
 }
 
