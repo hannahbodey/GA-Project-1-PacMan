@@ -1,6 +1,3 @@
-//!Pac Man Game
-//All MVP in green
-//*Any additions in light green
 function init(){
 
 //!Elements
@@ -44,6 +41,7 @@ let pinkyGoStart
 let inkyGoStart
 let clydeGoStart
 let time = 800
+let chaseGhosts = false
 
 //!//!Page Load: Board and Play Set-Up
 function startScreen(){
@@ -365,7 +363,6 @@ function addWall(){
     let randomWall = notWallArray.splice(cell, 1)
   }
 }
-//need to check and sort array additions / changes
 function removeFood(){
   cell.classList.remove('food')
   if (foodArray.includes(cell)){
@@ -463,8 +460,8 @@ function killerMove(position){
 }
 //*Blinky
 function blinkyGo(){
-  if (!allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
-    blinkyChase(blinkyPosition)
+  if (!chaseGhosts){
+  blinkyChase(blinkyPosition)
   }
   randomNumber = Math.ceil(Math.random() * 4)
   if (blinkyPosition === 265){
@@ -571,7 +568,7 @@ function blinkyChase(blinkyPosition){
 }
 //*Pinky
 function pinkyGo(){
-  if (!allSquaresArray[pinkyPosition].classList.contains('scaredghost')){
+  if (!chaseGhosts){
     pinkyChase(pinkyPosition)
   }
   randomNumber = Math.ceil(Math.random() * 4)
@@ -649,8 +646,8 @@ function pinkyChase(pinkyPosition){
 }
 //*Inky
 function inkyGo(){
-  if (!allSquaresArray[inkyPosition].classList.contains('scaredghost')){
-    inkyChase(inkyPosition)
+  if (!chaseGhosts){
+  inkyChase(inkyPosition)
   }
   randomNumber = Math.ceil(Math.random() * 4)
   if (inkyPosition <= currentPosition - (width * 2.5) || inkyPosition >= currentPosition + (width * 2.5)){
@@ -788,7 +785,7 @@ function pacmanAdd(currentPosition){
 }
 function pacmanFed(currentPosition){
   if (allSquaresArray[currentPosition].classList.contains('food')){
-    points ++
+    points++
     pointsSpan.innerText = points
     allSquaresArray[currentPosition].classList.remove('food')
   }
@@ -796,6 +793,10 @@ function pacmanFed(currentPosition){
     points++
     pointsSpan.innerText = points
     allSquaresArray[currentPosition].classList.remove('superfood')
+    chaseGhosts = true
+    setTimeout(() => {
+      chaseGhosts = false 
+    }, 5000)
     warHorn()
     clearInterval(ghostsWeak)
     clearInterval(ghostsStronger)
@@ -810,7 +811,7 @@ function pacmanFed(currentPosition){
   }
 }
 //*After Eating Functions
-function ghostWeakened(){
+function ghostWeakened(){ 
   removeScaredGhost()
   allSquaresArray[blinkyPosition].classList.add('scaredghost')
   allSquaresArray[pinkyPosition].classList.add('scaredghost')
@@ -911,7 +912,6 @@ function ghostsStrengthened(){
   clearInterval(ghostsStrong)
   removeScaredGhost()
 }
-  //pacman gets points (more each ghost he eats)
 //*Reset, Failure and Victory Functions
 function pacmanWins(sum){
   for (let i = 0; i < cellCount; i++){
@@ -940,7 +940,7 @@ function pacmanWins(sum){
   }
 }
 function pacmanDies(){
-  if (allSquaresArray[blinkyPosition].classList.contains('scaredghost')){
+  if (chaseGhosts){
     if (currentPosition === blinkyPosition){
       lives = lives
     } 
@@ -953,8 +953,8 @@ function pacmanDies(){
     if (currentPosition === clydePosition){
       lives = lives
     }
-  } else{
-    if (currentPosition === blinkyPosition){
+  } else {
+      if (currentPosition === blinkyPosition){
       lives--
       livesSpan.innerText = lives
       pacmanDiesSound()

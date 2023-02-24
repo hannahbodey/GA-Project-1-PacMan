@@ -9,7 +9,6 @@
 }
 
 body {
-  /* background-image: url(https://i.pinimg.com/originals/cd/d3/d0/cdd3d063efa131ca81da78e6b3ba550c.jpg); */
   background-image: url(https://sothebys-md.brightspotcdn.com/dims4/default/d6dd31c/2147483647/strip/true/crop/2000x1415+0+0/resize/2048x1449!/quality/90/?url=http%3A%2F%2Fsothebys-brightspot.s3.amazonaws.com%2Fmedia-desk%2F89%2F50%2F10ea1cbd4fdb97da4c0ceb6fb6ef%2Fl22404-c8tn7-4.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -33,7 +32,6 @@ h1 {
   text-align: center;
   font-size: large;
   font-weight: 700;
-  /* background-color: rgba(0,0,0,0.2); */
   color: antiquewhite;
 }
 
@@ -74,7 +72,6 @@ p {
   /* height: 3.55%; */
   height: 20px;
   background-color: rgba(250, 235, 215, 0.8);
-  /* background-color: #fff; */
   border: 1px solid rgba(0,0,0,1);
 }
 
@@ -96,7 +93,6 @@ p {
   margin-top: 250px;
   height: 50vh;
   width: 50vw;
-  /* background-color: antiquewhite; */
   border: 10px solid rgba(0,0,0,0.8);
   font-size: 20px;
 }
@@ -114,9 +110,6 @@ p {
 }
 
 .food {
-  /* background-image: url(https://e7.pngegg.com/pngimages/216/119/png-clipart-strawberry-illustration-ms-pac-man-galaxian-super-smash-bros-for-nintendo-3ds-and-wii-u-arcade-game-pac-man-super-smash-bros-for-nintendo-3ds-and-wii-u-text.png); */
-  /* background-image: url(https://www.clipartmax.com/png/middle/148-1480464_single-cherry-blossom-petal.png); */
-  /* background-image: url(https://png.pngtree.com/png-clipart/20220108/ourmid/pngtree-pink-cherry-petal-illustration-png-image_4275808.png); */
   background-image: url(pictures/food.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -124,7 +117,6 @@ p {
 }
 
 .superfood {
-  /* background-image: url(https://w7.pngwing.com/pngs/899/510/png-transparent-cherry-fruit-pac-man-woman-silhouette-love-food-heart.png); */
   background-image: url(pictures/superfood.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -132,9 +124,6 @@ p {
 }
 
 .pacman {
-  /* background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Pacman.svg/1200px-Pacman.svg.png); */
-  /* background-image: url(https://i.pinimg.com/474x/b5/1a/42/b51a425c8f16bb29bc21e631d0e4cc43.jpg); */
-  /* background-image: url(https://cdn.superstock.com/263/Comp/263-519.jpg); */
   background-image: url(pictures/pacman_knight.png);
   background-size: contain;
   background-position: center;
@@ -142,7 +131,6 @@ p {
 }
 
 .clyde {
-  /* background-image: url(https://ryanharveyauthor.files.wordpress.com/2018/09/clydeeghost.png); */
   background-image: url(pictures/clyde_snail.png);
   background-size: contain;
   background-position: center;
@@ -150,38 +138,25 @@ p {
 }
 
 .blinky {
-  /* background-image: url(https://www.giantbomb.com/a/uploads/scale_small/8/87790/2469740-blinky.png); */
-  /* background-image: url(https://i.pinimg.com/originals/20/8d/44/208d447a10963f7f3f8db885ccbb34e1.jpg); */
   background-image: url(pictures/blinky_medieval.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .inky {
-  /* background-image: url(https://www.pngitem.com/pimgs/m/112-1122835_pacman-ghost-transparent-background-free-images-png-pacman.png); */
   background-image: url(pictures/inky_medieval.png);
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .pinky {
-  /* background-image: url(https://e7.pngegg.com/pngimages/829/428/png-clipart-ms-pac-man-pac-man-adventures-in-time-pac-man-party-space-invaders-ghost-pacman-purple-super-smash-bros-for-nintendo-3ds-and-wii-u-thumbnail.png);  */
-  /* background-image: url(https://spng.pngfind.com/pngs/s/692-6922769_pacman-pac-man-pac-man-pacman-pac-man.png); */
-  /* background-image: url(https://www.vhv.rs/dpng/d/503-5036105_pink-pac-man-ghost-hd-png-download.png); */
   background-image: url(pictures/pinky_medieval.png);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.ghost {
-  background-image: url(https://i.seadn.io/gae/Np4ZBJIVyijltbYcw6RbqpfzNPko221crc_rhiGTGXzb5jWOUsbWZ2iSDx05Om4CSTdVkTPgWZYX4uNJfTuSYtmqJU5yX94pqqtY-g?auto=format&w=1000);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
 .scaredghost {
-  /* background-image: url(https://www.pngitem.com/pimgs/m/98-987441_pacman-ghost-image-result-for-scared-transparent-png.png); */
   background-image: url(pictures/scared_medieval_ghost.png);
   background-size: contain;
   background-repeat: no-repeat;
