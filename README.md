@@ -6,7 +6,7 @@ This project was to recreate a classic arcade game, which was done in week 3 and
 
 **Deployment link**
 
-<https://hannahbodey.github.io/Pac-Man-Project/> - Deployed project
+<https://hannahbodey.github.io/GA-Project-1-PacMan/> - Deployed project
 
 <https://github.com/hannahbodey/Pac-Man-Project> - Git repo
 
