@@ -62,6 +62,7 @@ Once I had done this, I planned out the various functions required for the game.
 **Build/Code Process**
 
 Once I had completed my planning, I moved on to complete the HTML and CSS. Knowing, for example, that I would need to be able to very clearly directly target different elements on my page, I was careful to use specific IDs as well as classes for the different elements involved:
+
 ![ScreenShot](read-me-screenshots/project-1-build-1.png)
 
 In the image above, I also separate out different divs that will sit above my game board into one section so that I can apply appropriate display characteristics and also amend the content of the spans (for example) via JavaScript. 
@@ -69,30 +70,37 @@ In the image above, I also separate out different divs that will sit above my ga
 The idea of this project was to create as much of it as possible through JavaScript. Therefore, I quickly moved on to JavaScript in order to ensure that I didn’t miss any of the key logic required to make my game work. I began by ensuring that the board would set up appropriately, then moved on to PacMan’s movements. With this done, I set up random movements for one ghost, checked it was fully working, and then added three additional ghosts. Once these basics were complete, I began the real challenge of making the game much more difficult. This primarily meant creating categories for when the ghosts were chasing PacMan, and when they were scattering as they were no longer invincible. 
 
 Initially, there therefore needed to be control and timing surrounding the player’s consumption of ‘special food’. I created a sequence of functions to facilitate this behaviour, which involved timers for the length of time before ghosts started flashing whilst they were vulnerable, and the speeds at which they should start moving (I had them all set at different speeds as per their characters, which I will discuss below). 
+
 ![ScreenShot](read-me-screenshots/project-1-build-2.png)
 
 Here is the initial function used to weaken the ghosts (i.e. give them an additional class which changes their icon and also amends their behaviour):
+
 ![ScreenShot](read-me-screenshots/project-1-build-3.png)
 
 This in turn triggers multiple other functions, including sound effects. I was pleased with this because it is generally very tidy, and I think that the sequence is quite clear. However, I think it could be further improved if you could remove the repetition and have a more catch-all initial statement. I found it challenging to do this when trying to keep all the ghosts distinct and with their own character and icon. 
 
 Once I had the ‘ghosts weakening’ effect working, I moved on to consider how to give each of the ghosts individual characters. Given that Blinky (usually red in the original PacMan) is the most vicious in the original version, I started with that character. He would need to be more responsive to the player’s movements and, therefore, I decided he would be most complicated to code. Blinky is supposed to predominantly patrol the top right hand corner of the screen, and take the quickest line of attack towards the player. I therefore, started by ensuring that Blinky’s initial movements were towards the top right hand corner. Once this was done, I added the blinkyChase() function, pictured below the blinkyGo() function.
+
 ![ScreenShot](read-me-screenshots/project-1-build-4.png)
 
 This function ensured that Blinky, already the fastest moving ghost, became significantly quicker when PacMan was nearby.  
+
 ![ScreenShot](read-me-screenshots/project-1-build-5.png)
 
 If Blinky was only one square away from the player in any direction, this triggered my killerMove() function, which ensured that the ghost always went onto the square that the player occupied if they were next to each other.
+
 ![ScreenShot](read-me-screenshots/project-1-build-6.png)
 
 This worked for all ghosts, and therefore was highly reusable code, significantly reducing rewrites. 
 
 Blinky then had an additional sequence of commands, which ensured that if the player was within a certain proximity, his movements were no longer randomised, but aimed to head in the direction of the player with the shortest possible route. I am sure that there is a much neater and more effective way to do this, however, I challenged myself to get Blinky to display some of this behaviour without taking code from searches that I did not understand. Instead, I tried to think about the logic of Blinky’s movements, and where he would need to go, if, for example, the player was on the row below him but there was a wall in the way. I also gave Pinky, the second most deadly ghost, a clearer set of movements than the remaining two ghosts, such that he too would attack when the player was close. His attack is supposed to be more roundabout, so I left fewer commands for his movement, in order to allow more of it to be dictated by the random number generator. 
+
 ![ScreenShot](read-me-screenshots/project-1-build-7.png)
 
 **Challenges**
 
 The way in which I created the board was quite laborious, and ultimately took up lots of lines of code. I used modulus calculations to try and count as many of the squares that would require / not require a wall as possible from the outset, but this still left me having to hardcode multiple squares into having / not having a wall. 
+
 ![ScreenShot](read-me-screenshots/project-1-challenges-1.png)
 
 I really wanted to avoid hardcoding these wall numbers into the code, as I initially considered changing the board layout on a level up, but this was the best solution that I could find. In the future, it might be easier to simply hardcode out an array of squares to feature walls / no walls, and then push() certain numbers into that array if I wanted to amend the layout of the board. When I initially started though, I wanted to try and find a way to do this without simply writing a very long array, and this was my best attempt. 
@@ -104,6 +112,7 @@ Additionally, although I did manage to dictate some of Blinky’s movements, I d
 I was very pleased with the ghost behaviour that I managed to code featured in a previous section, including their response to the player eating ‘special food’. I also was pleased with the consistency of my theme, and the level of intricacy in each of the characters’ chosen icons. 
 
 Additionally, I was pleased with the mutability of the buttons in my game, as they were more user friendly because of where I had them appearing / disappearing / being disabled at various points. 
+
 ![ScreenShot](read-me-screenshots/project-1-wins-1.png)
 
 This featured differences between the start of the game and when the game would continue after the player had lost one or two lives. The addition of pulsing on the continue button was for player ease, so that they would definitely click that button to restart the ghosts at the beginning of another round. I was pleased that I had managed to make the keydown features inactive until the game actually began. 
