@@ -1,36 +1,36 @@
-**PacMan Game**
+# PacMan Game
 
-**General Assembly Project One**
+## General Assembly Project One
 
 This project was to recreate a classic arcade game, which was done in week 3 and 4 of the course. Out of the options presented, I chose to make a version of PacMan. The focus was on using JavaScript to ensure that the game was interactive and behaved in the way that you would expect given the original version of the game. 
 
-**Deployment link**
+### Deployment link
 
 <https://hannahbodey.github.io/GA-Project-1-PacMan/> - Deployed project
 
 <https://github.com/hannahbodey/Pac-Man-Project> - Git repo
 
-**Timeframe & Working Team**
+### Timeframe & Working Team
 
 This was an individual, independent project for which we were given a week. 
 
-**Technologies Used**
+### Technologies Used
 
-HTML
+-HTML
 
-CSS
+-CSS
 
-JavaScript
+-JavaScript
 
-Excalidraw
+-Excalidraw
 
-**Brief**
+### Brief
 
 The brief was to create a version of the classic arcade game, PacMan. The player should eat all the food to clear the round, without being caught by the ghosts. The ghosts all chase the player, to varying degrees. If the player eats one of the special food icons, the ghosts change to being vulnerable to attack, and if caught by the player, the player gains points and sends the ghosts back to their starting position. The player should gain the highest score possible before being killed by the ghosts. 
 
 For this version, the player had to be able to clear at least one board, and their score should be displayed at the end of the game. If these criteria were met, additional features should be added to the game; some suggestions included adding reset buttons, or highest scores using local storage. 
 
-**Planning**
+### Planning
 
 Before beginning my project, I created two wireframes and some pseudocode. The first wireframe, pictured below, featured my initial thoughts on how to go about designing the game structurally. This formed the preliminary thinking before I began pseudocoding. 
 
@@ -59,7 +59,7 @@ Once I had done this, I planned out the various functions required for the game.
 ![ScreenShot](read-me-screenshots/project-1-pseudocode-5.png)
 
 
-**Build/Code Process**
+### Build/Code Process
 
 Once I had completed my planning, I moved on to complete the HTML and CSS. Knowing, for example, that I would need to be able to very clearly directly target different elements on my page, I was careful to use specific IDs as well as classes for the different elements involved:
 
@@ -97,7 +97,7 @@ Blinky then had an additional sequence of commands, which ensured that if the pl
 
 ![ScreenShot](read-me-screenshots/project-1-build-7.png)
 
-**Challenges**
+### Challenges
 
 The way in which I created the board was quite laborious, and ultimately took up lots of lines of code. I used modulus calculations to try and count as many of the squares that would require / not require a wall as possible from the outset, but this still left me having to hardcode multiple squares into having / not having a wall. 
 
@@ -107,7 +107,7 @@ I really wanted to avoid hardcoding these wall numbers into the code, as I initi
 
 Additionally, although I did manage to dictate some of Blinky’s movements, I did find that his movements became quite jerky and sometimes he went the opposite way to what I expected. This meant that his attack was less deadly than it should have been, and certainly less slick. In future, I would want to employ a more sophisticated pathfinder methodology; on this occasion, I wanted to practise that which I’d learned on the course up to that point, applying it to new and more complex problems.  
 
-**Wins**
+### Wins
 
 I was very pleased with the ghost behaviour that I managed to code featured in a previous section, including their response to the player eating ‘special food’. I also was pleased with the consistency of my theme, and the level of intricacy in each of the characters’ chosen icons. 
 
@@ -117,21 +117,21 @@ Additionally, I was pleased with the mutability of the buttons in my game, as th
 
 This featured differences between the start of the game and when the game would continue after the player had lost one or two lives. The addition of pulsing on the continue button was for player ease, so that they would definitely click that button to restart the ghosts at the beginning of another round. I was pleased that I had managed to make the keydown features inactive until the game actually began. 
 
-**Key Learnings/Takeaways**
+### Key Learnings/Takeaways
 
 One of the biggest takeaways for me from this project was the importance of clear pseudocode. I had begun to use this more in the week leading up to this project, but only fully implemented it when starting work on this project. Having clearly thought through each function in my JavaScript and how each one would contribute to my creation of a viable final product considerably improved the clarity of my thought processes as well as of my code. This also meant that I completed my MVP much more quickly in the week than I had anticipated, which allowed me to spend more time refining the different additional features that I wanted to give the project. 
 
 Although this may sound general, I think this project also significantly enhanced my ability to think through any problems encountered and rectify them myself. Given that this was my first project, until this point I had only really been working on homeworks for the course, and had not been given free reign or as long to think about each element of the code that I was writing, and the impact that it might have on the output. 
 
-**Bugs**
+### Bugs
 
-Occasionally, if the player presses the down arrow before the right arrow, then there is an error message. 
+Occasionally, if the player presses the down arrow before the right arrow, then there is an error message in the console. 
 
 It is also possible for the player to move around the grid after resetting and without pressing play, which means that they can cheat onto the next level. Although I managed to disable the keydown events at the start of the game, I didn’t manage to disable them at this point in the game without disrupting the smooth running of the game.
 
 Despite my having set width requirements, sometimes the grid does not show correctly on certain screens, and the browser window has to be made smaller. 
 
-**Future Improvements**
+## Future Improvements
 
 In the future, I would like to improve my ability to refactor my code, as mentioned above. I would also like to enhance the ghost movements so that they were slicker. I think it would be better if Blinky, for example, could more intelligently find the shortest route to the player, and if Pinky could always find a short route with some unexpected turns in order to ambush the player. This, however, would require quite a lot more understanding of how to interact with the grid of the board and would require significant caveats to ensure that the ghosts were not then able to jump walls. 
 
