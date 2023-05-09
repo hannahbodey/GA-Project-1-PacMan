@@ -59,7 +59,7 @@ Once I had done this, I planned out the various functions required for the game.
 ![ScreenShot](read-me-screenshots/project-1-pseudocode-5.png)
 
 
-### Build/Code Process
+### Build / Code Process
 
 Once I had completed my planning, I moved on to complete the HTML and CSS. Knowing, for example, that I would need to be able to very clearly directly target different elements on my page, I was careful to use specific IDs as well as classes for the different elements involved:
 
