@@ -117,7 +117,7 @@ Additionally, I was pleased with the mutability of the buttons in my game, as th
 
 This featured differences between the start of the game and when the game would continue after the player had lost one or two lives. The addition of pulsing on the continue button was for player ease, so that they would definitely click that button to restart the ghosts at the beginning of another round. I was pleased that I had managed to make the keydown features inactive until the game actually began. 
 
-### Key Learnings/Takeaways
+### Key Learnings and Takeaways
 
 One of the biggest takeaways for me from this project was the importance of clear pseudocode. I had begun to use this more in the week leading up to this project, but only fully implemented it when starting work on this project. Having clearly thought through each function in my JavaScript and how each one would contribute to my creation of a viable final product considerably improved the clarity of my thought processes as well as of my code. This also meant that I completed my MVP much more quickly in the week than I had anticipated, which allowed me to spend more time refining the different additional features that I wanted to give the project. 
 
